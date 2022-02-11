@@ -1,6 +1,6 @@
 
 
-const Graph = () => {
+const Graph = ({ priceData }) => {
   return (
   <div>
       

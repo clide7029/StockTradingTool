@@ -1,0 +1,33 @@
+.options {
+    height: 50px;
+    padding: 10px;
+    background: #181724;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.options ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+
+.options Button {
+    background-color: #1F1E2E;
+    border-radius: 10px;
+    opacity: 75%;
+    margin: 5px 15px;
+    height: 30px;
+    width: 30px;
+    font-size: 0.75em;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.options Button:hover{
+    background-color: #28293D;
+    color: cyan;
+}
