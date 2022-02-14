@@ -6,14 +6,17 @@ import PropTypes from 'prop-types'
 
 
 
-const Options = ({ setRuleDisplay, setStatDisplay}) => {
+const Options = ({ setRuleDisplay, setStatDisplay }) => {
 
 
     return (
         <nav className={optionStyles.options}>
         <ul>
             <li>
-            <Button onClick={setRuleDisplay} text="&#8475;"></Button>
+            <Button onClick={() => setRuleDisplay("show rules")} text="&#8475;"></Button>
+            </li>
+            <li>
+            <Button onClick={() => setRuleDisplay("dont")} text="&#8475;"></Button>
             </li>
             <li>
             <Button onClick={setStatDisplay} text="&#36;"></Button>
