@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 
 import RuleForm from '../components/rule/RuleForm';
+import RuleSet from '../components/rule/RuleSet';
 import Options from '../components/graph/Options';
 
 import stonkStyles from '../styles/Stock.module.css'
@@ -21,7 +22,7 @@ const stonks = () => {
       ></Options>
 
       <>
-      {ruleDisplay=="show rules" && <RuleForm></RuleForm>}
+      {ruleDisplay=="show rules" && <RuleSet></RuleSet>}
       {statDisplay && <p>DOGE TO THE MOON</p>}
       </>
     </div>
