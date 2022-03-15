@@ -52,7 +52,7 @@ async function DataPriceSpan(name, span, T1, T2) {
     var datum = Date.parse(T1);
     var UNIXDate = datum/1000;
     var datum2 = Date.parse(T2);
-    var UNIXDate2 = datum/1000;
+    var UNIXDate2 = datum2/1000;
     finnhubClient.stockCandles(test.symbol, span, UNIXDate, UNIXDate2, (error, data, response) => {
         //console.log(data)
         database.collection('price').insertOne(data);
