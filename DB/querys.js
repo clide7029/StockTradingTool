@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const finnhub = require('finnhub');
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
@@ -12,15 +11,15 @@ test()
 async function test(){
     try {
         let Data2 = await DataPrice(input)
-        console.log(Data2)
+        //console.log(Data2)
         let Data3 = await DataStock(input)
-        //console.log(Data3)
+        console.log(Data3)
         let Data4 = await DataType("ADR")
-        //console.log(Data4)
+        console.log(Data4)
         let Data5 = await UserData("001", "Pass")
-        //console.log(Data5)
+        console.log(Data5)
         let Data6 = await DataPriceSpan("INTL BUSINESS MACHINES CORP", "D", '02/13/2019 23:31:30', '02/13/2020 23:31:30')
-        console.log(Data6)
+        //console.log(Data6)
     } finally {
         //Ensures that the client will close when you finish/error
         await client.close();
@@ -38,9 +37,8 @@ async function DataPrice(name) {
     var ret = 0;
     finnhubClient.quote(test.symbol, (error, data, response) => {
         console.log(data)
-        ret = data;
     });
-    return ret;
+    
 }
 
 async function DataPriceSpan(name, span, T1, T2) {
@@ -53,12 +51,9 @@ async function DataPriceSpan(name, span, T1, T2) {
     var UNIXDate = datum/1000;
     var datum2 = Date.parse(T2);
     var UNIXDate2 = datum/1000;
-    const Url = 'https://finnhub.io/api/v1/stock/candle?symbol=${test.symbol}&resolution=${span}&from=${UNIXDate}&to=${UNIXDate2}&token=c84b3jqad3ide9hei860'
-    const response = await fetch(Url);
     finnhubClient.stockCandles(test.symbol, span, UNIXDate, UNIXDate2, (error, data, response) => {
         console.log(data)
     });
-    return response;
 }
 
 async function DataStock(name) {
