@@ -1,14 +1,19 @@
+/*
 const { MongoClient, ServerApiVersion, ReturnDocument } = require('mongodb');
-const finnhub = require('finnhub');
-const api_key = finnhub.ApiClient.instance.authentications['api_key'];
+//import { MongoClient, ServerApiVersion, ReturnDocument } from 'mongodb';
+import {dataTransformer} from "./utils";
+//const { MongoClient, ServerApiVersion } = require('mongodb');
+//const finnhub = require('finnhub');
+//import finnhub from 'finnhub';
+//const api_key = finnhub.ApiClient.instance.authentications['api_key'];
 const uri = "mongodb+srv://J_scar:LbhnZFusqfoAyMoH@cluster0.kcrdt.mongodb.net/cluster0?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 api_key.apiKey = "c84b3jqad3ide9hei860"
-const finnhubClient = new finnhub.DefaultApi()
+//const finnhubClient = new finnhub.DefaultApi()
 const input = 'BLUEACACIA LTD - CLASS A'
 
 //test()
-async function test(){
+export async function test(){
     try {
         let Data6 = await DataPriceSpan("INTL BUSINESS MACHINES CORP", "D", '02/13/2019 23:31:30', '02/13/2020 23:31:30')
         console.log(Data6)
@@ -28,7 +33,7 @@ async function test(){
 
 }
 
-async function DataPrice(name) {
+export async function DataPrice(name) {
     await client.connect();
     const database = client.db('stockData');
     const stock = database.collection('stock');
@@ -40,10 +45,11 @@ async function DataPrice(name) {
         //console.log(data)
         database.collection('price').insertOne(data);
     });
-    return await database.collection('price').findOneAndDelete({}, {sort: { _id:-1} });
+    const returnVar = await database.collection('price').findOneAndDelete({}, {sort: { _id:-1} });
+    return dataTransformer(returnVar);
 }
 
-async function DataPriceSpan(name, span, T1, T2) {
+export async function DataPriceSpan(name, span, T1, T2) {
     await client.connect();
     const database = client.db('stockData');
     const stock = database.collection('stock');
@@ -52,15 +58,14 @@ async function DataPriceSpan(name, span, T1, T2) {
     var datum = Date.parse(T1);
     var UNIXDate = datum/1000;
     var datum2 = Date.parse(T2);
-    var UNIXDate2 = datum2/1000;
-    finnhubClient.stockCandles(test.symbol, span, UNIXDate, UNIXDate2, (error, data, response) => {
-        //console.log(data)
-        database.collection('price').insertOne(data);
+    var UNIXDate2 = datum/1000;
+    finnhubClient.stockCandles(name, span, UNIXDate, UNIXDate2, (error, data, response) => {
+        return dataTransformer(data);
     });
     return await database.collection('price').findOneAndDelete({}, {sort: { _id:-1} });
 }
 
-async function DataStock(name) {
+export async function DataStock(name) {
     
     await client.connect();
     const database = client.db('stockData');
@@ -71,7 +76,7 @@ async function DataStock(name) {
     return test;
 }
 
-async function UserData(UID, Password) {
+export async function UserData(UID, Password) {
     await client.connect();
     const database = client.db('stockData');
     const stock = database.collection('User');
@@ -82,7 +87,7 @@ async function UserData(UID, Password) {
 
 }
 
-async function DataType(type) {
+export async function DataType(type) {
     
     await client.connect();
     const database = client.db('stockData');
@@ -92,3 +97,4 @@ async function DataType(type) {
     //console.log(test);
     return test;
 }
+*/

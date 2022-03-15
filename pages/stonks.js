@@ -4,7 +4,8 @@ import { useState } from 'react';
 import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
 import Options from '../components/graph/Options';
-
+//import ChartComponent from '../components/graph/ChartComponent';
+import ReactFinancialChart from '../components/graph/ReactFiniancialChartComponent';
 import stonkStyles from '../styles/Stock.module.css'
 import optionStyles from "../styles/Options.module.css";
 
@@ -20,6 +21,7 @@ const stonks = () => {
         setRuleDisplay={setRuleDisplay}
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
+      <ReactFinancialChart/> 
 
       <>
       {ruleDisplay=="show rules" && <RuleSet></RuleSet>}
