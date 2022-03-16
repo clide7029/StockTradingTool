@@ -12,15 +12,21 @@ const stonks = () => {
 
   const [ruleDisplay, setRuleDisplay] = useState();
   const [statDisplay, setStatDisplay] = useState(false);
+  const [search, setSearch] = useState();
 
   return (
   <div>
     <div className="graph">
       <Options 
+        setSearch={setSearch}
         setRuleDisplay={setRuleDisplay}
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
 
+
+      <>
+      {search && <p>{search.stock}<br></br>{search.interval}</p>}
+      </>
       <>
       {ruleDisplay=="show rules" && <RuleSet></RuleSet>}
       {statDisplay && <p>DOGE TO THE MOON</p>}

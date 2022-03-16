@@ -31,3 +31,22 @@
     background-color: #28293D;
     color: cyan;
 }
+
+.options_inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.options_inline label {
+    margin: 5px 10px 5px 0;
+}
+
+.options_inline input {
+    width: 80px;
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}

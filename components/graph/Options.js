@@ -1,17 +1,22 @@
 import { useState } from 'react';
 import Button from "../Button"
+import Search from "../graph/Search"
 import optionStyles from '../../styles/Options.module.css';
 import PropTypes from 'prop-types'
 
 
 
 
-const Options = ({ setRuleDisplay, setStatDisplay }) => {
+
+const Options = ({ setSearch, setRuleDisplay, setStatDisplay }) => {
 
 
     return (
         <nav className={optionStyles.options}>
         <ul>
+            <li>
+                <Search onSubmit={setSearch}></Search>
+            </li>
             <li>
             <Button onClick={() => setRuleDisplay("show rules")} text="&#8475;"></Button>
             </li>
