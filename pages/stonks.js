@@ -23,7 +23,7 @@ const stonks = () => {
         setRuleDisplay={setRuleDisplay}
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
-      <ReactFinancialChart/> 
+      <ReactFinancialChart search={search}/> 
 
 
       <>

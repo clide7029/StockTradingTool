@@ -28,10 +28,10 @@ import {
   withDeviceRatio,
   withSize
 } from "react-financial-charts";
-import { initialData } from "./data";
+import { dummyData } from "./data";
 
-const ReactFinancialChart = () => {
-    //initialData = await DataPriceSpan("AAPL","D",1610669676,1644884076)
+const ReactFinancialChart = ({search}) => {
+    initialData = getData(search);
     console.log("initial")
     console.log(initialData)
     console.log("tmpData")
@@ -208,5 +208,10 @@ const ReactFinancialChart = () => {
         <CrossHairCursor />
     </ChartCanvas>
     );
+}
+const getData = async (search) => {
+    const response =  await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1610669676&to=1644884076&token=c6im5hiad3i8jt9dugng')
+    const returnData = await response.json();
+    return returnData;
 }
 export default ReactFinancialChart;
