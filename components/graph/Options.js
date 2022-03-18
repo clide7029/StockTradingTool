@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 
 
-const Options = ({ setSearch, setRuleDisplay, setStatDisplay }) => {
+const Options = ({ setSearch, ruleCount, setRuleCount, setStatDisplay }) => {
 
 
     return (
@@ -18,10 +18,10 @@ const Options = ({ setSearch, setRuleDisplay, setStatDisplay }) => {
                 <Search onSubmit={setSearch}></Search>
             </li>
             <li>
-            <Button onClick={() => setRuleDisplay("show rules")} text="&#8475;"></Button>
+            <Button onClick={() => setRuleCount(ruleCount++)} text="&#8475;"></Button>
             </li>
             <li>
-            <Button onClick={() => setRuleDisplay("dont")} text="&#8475;"></Button>
+            <Button onClick={() => setRuleCount(ruleCount--)} text="&#8475;"></Button>
             </li>
             <li>
             <Button onClick={setStatDisplay} text="&#36;"></Button>

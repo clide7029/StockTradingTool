@@ -19,10 +19,10 @@ const IntervalMenu = forwardRef(({label}, ref) => {
         <label className={optionStyle.options_inline} >{label}</label>
         <select ref={ref} className={optionStyle.options_inline}>
           <option value={""}>interval:</option>
-          <option value={"H"}>1H</option>
-          <option value={"D"}>1D</option>
-          <option value={"W"}>1W</option>
-          <option value={"M"}>1M</option>
+          <option value={"60"}>1-Hour</option>
+          <option value={"D"}>1-Day</option>
+          <option value={"W"}>1-Week</option>
+          <option value={"M"}>1-Month</option>
       </select>
       </div>
     );

@@ -11,26 +11,28 @@ import optionStyles from "../styles/Options.module.css";
 
 const stonks = () => {
 
-  const [ruleDisplay, setRuleDisplay] = useState();
+  const [ruleCount, setRuleCount] = useState(0);
   const [statDisplay, setStatDisplay] = useState(false);
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState({stock: "AAPL", interval:"D"});
+  const [priceData, setPriceData] = useState();
+  const [rules, setRules] = useState([])
 
   return (
   <div>
     <div className="graph">
       <Options 
         setSearch={setSearch}
-        setRuleDisplay={setRuleDisplay}
+        ruleCount={ruleCount}
+        setRuleCount={setRuleCount}
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
-      <ReactFinancialChart/> 
 
 
       <>
       {search && <p>{search.stock}<br></br>{search.interval}</p>}
       </>
       <>
-      {ruleDisplay=="show rules" && <RuleSet></RuleSet>}
+      {ruleCount!=0 && <RuleSet ruleCount={ruleCount} rules={rules} setRules={setRules}></RuleSet>}
       {statDisplay && <p>DOGE TO THE MOON</p>}
       </>
     </div>

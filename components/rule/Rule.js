@@ -1,24 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import RuleForm from './RuleForm'
 
 import ruleStyle from '../../styles/Rule.module.css';
 
 
-const Rule = ({ }) => {
+const Rule = ({ rules, setRules }) => {
 
     const [rule, setRule] = useState()
-    const [custom, setCustom] = useState(false)
+    const [indicator, setIndicator] = useState()
+    const [custom, setCustom] = useState()
 
+  useEffect(() => {
+    console.log(custom)
+    if(custom){
+      setRule({
+        indicator:indicator,
+        timePeriod:custom.timePeriod,
+        seriesType:custom.seriesType
+      });
+      // setRules(rules.push(rule));
+      // console.log(rules)
+      console.dir(rule)
+    }
+    }, [custom])
 
   return (
   <div className={ruleStyle.rule}>
-      <select className={ruleStyle.ruleMenu} onChange={e => setRule(e.target.value)}>
-          <option value={""}>rules:</option>
-          <option value={"SMA"}>SMA</option>
-          <option value={"EMA"}>EMA</option>
-      </select>
-
-      <select className={ruleStyle.ruleMenu} onChange={e => setCustom.timePeriod(e.target.value)}>
+      <select className={ruleStyle.ruleMenu} onChange={e => setIndicator(e.target.value)}>
           <option value={""}>rules:</option>
           <option value={"SMA"}>SMA</option>
           <option value={"EMA"}>EMA</option>
@@ -29,14 +37,11 @@ const Rule = ({ }) => {
     </div>
 
     <>
+    {rule && <p>{rule.indicator}</p>}
     {custom && <p>{custom.timePeriod}</p>}
     {custom && <p>{custom.seriesType}</p>}
     </>
 
-    <>
-    {rule=="SMA" && <p>SMA</p>}
-    {rule=="EMA" && <p>EMA</p>}
-    </>
 
   </div>
   )};

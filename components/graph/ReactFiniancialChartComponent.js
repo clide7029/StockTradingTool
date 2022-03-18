@@ -1,35 +1,35 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { format } from "d3-format";
-import { timeFormat } from "d3-time-format";
-import { getDataReactFinancialChart } from "./utils";
-import {
-  elderRay,
-  ema,
-  discontinuousTimeScaleProviderBuilder,
-  Chart,
-  ChartCanvas,
-  CurrentCoordinate,
-  BarSeries,
-  CandlestickSeries,
-  ElderRaySeries,
-  LineSeries,
-  MovingAverageTooltip,
-  OHLCTooltip,
-  SingleValueTooltip,
-  lastVisibleItemBasedZoomAnchor,
-  XAxis,
-  YAxis,
-  CrossHairCursor,
-  EdgeIndicator,
-  MouseCoordinateX,
-  MouseCoordinateY,
-  ZoomButtons,
-  withDeviceRatio,
-  withSize
-} from "react-financial-charts";
-import { initialData } from "./data";
-
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import { format } from "d3-format";
+// import { timeFormat } from "d3-time-format";
+// import { getDataReactFinancialChart } from "./utils";
+// import {
+//   elderRay,
+//   ema,
+//   discontinuousTimeScaleProviderBuilder,
+//   Chart,
+//   ChartCanvas,
+//   CurrentCoordinate,
+//   BarSeries,
+//   CandlestickSeries,
+//   ElderRaySeries,
+//   LineSeries,
+//   MovingAverageTooltip,
+//   OHLCTooltip,
+//   SingleValueTooltip,
+//   lastVisibleItemBasedZoomAnchor,
+//   XAxis,
+//   YAxis,
+//   CrossHairCursor,
+//   EdgeIndicator,
+//   MouseCoordinateX,
+//   MouseCoordinateY,
+//   ZoomButtons,
+//   withDeviceRatio,
+//   withSize
+// } from "react-financial-charts";
+// import { initialData } from "./data";
+// import graphStyles from "../../styles/Graph.module.css"
 const ReactFinancialChart = () => {
     //initialData = await DataPriceSpan("AAPL","D",1610669676,1644884076)
     console.log("initial")
@@ -54,10 +54,10 @@ const ReactFinancialChart = () => {
     const ema26 = ema()
        .id(2)
        .options({ windowSize: 26 })
-    .merge((d, c) => {
+        .merge((d, c) => {
         d.ema26 = c;
-    })
-    .accessor((d) => d.ema26);
+        })
+        .accessor((d) => d.ema26);
 
     const elder = elderRay();
 
@@ -120,6 +120,7 @@ const ReactFinancialChart = () => {
         xAccessor={xAccessor}
         xExtents={xExtents}
         zoomAnchor={lastVisibleItemBasedZoomAnchor}
+        className={graphStyles.graph}
     >
         <Chart
         id={2}
