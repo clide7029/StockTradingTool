@@ -4,8 +4,8 @@ import { useState } from 'react';
 import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
 import Options from '../components/graph/Options';
-//import ChartComponent from '../components/graph/ChartComponent';
-import ReactFinancialChart from '../components/graph/ReactFiniancialChartComponent';
+import GenericFinancialChart from '../components/graph/GenericFinancialChart';
+import ReactFinancialChart from '../components/graph/ReactFinancialChart';
 import stonkStyles from '../styles/Stock.module.css'
 import optionStyles from "../styles/Options.module.css";
 
@@ -26,7 +26,8 @@ const stonks = () => {
         setRuleCount={setRuleCount}
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
-
+      <GenericFinancialChart search = {search}/>
+      <>{priceData && <p>{priceData[11].ema12}</p>}</>
 
       <>
       {search && <p>{search.stock}<br></br>{search.interval}</p>}

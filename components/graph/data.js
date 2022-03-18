@@ -1,6 +1,6 @@
 export let initialData = [
     {
-        //"date": "lmao",
+        "date": "lmao",
         "open": 213.52,
         "low": 212.03,
         "high": 214.51,
