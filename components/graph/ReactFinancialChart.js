@@ -4,38 +4,44 @@ import { format } from "d3-format";
 import { timeFormat } from "d3-time-format";
 import { getDataReactFinancialChart } from "./utils";
 import {
-  elderRay,
-  ema,
-  discontinuousTimeScaleProviderBuilder,
-  Chart,
-  ChartCanvas,
-  CurrentCoordinate,
-  BarSeries,
-  CandlestickSeries,
-  ElderRaySeries,
-  LineSeries,
-  MovingAverageTooltip,
-  OHLCTooltip,
-  SingleValueTooltip,
-  lastVisibleItemBasedZoomAnchor,
-  XAxis,
-  YAxis,
-  CrossHairCursor,
-  EdgeIndicator,
-  MouseCoordinateX,
-  MouseCoordinateY,
-  ZoomButtons,
-  withDeviceRatio,
-  withSize
+    elderRay,
+    ema,
+    discontinuousTimeScaleProviderBuilder,
+    Chart,
+    ChartCanvas,
+    CurrentCoordinate,
+    BarSeries,
+    CandlestickSeries,
+    ElderRaySeries,
+    LineSeries,
+    MovingAverageTooltip,
+    OHLCTooltip,
+    SingleValueTooltip,
+    lastVisibleItemBasedZoomAnchor,
+    XAxis,
+    YAxis,
+    CrossHairCursor,
+    EdgeIndicator,
+    MouseCoordinateX,
+    MouseCoordinateY,
+    ZoomButtons,
+    withDeviceRatio,
+    withSize,
+    macd,
+    MACDSeries,
+    MACDSeriesProps,
+    MACDTooltip,
+    MACDTooltipProps
 } from "react-financial-charts";
-import { dummyData } from "./data";
-
-const ReactFinancialChart = ({search}) => {
-    initialData = getData(search);
+    import { initialData } from "./data";
+//const initialData = getData(search);
+    
+const ReactFinancialChart = ({search, setPriceData} ) => {
+    setPriceData(initialData)
     console.log("initial")
     console.log(initialData)
     console.log("tmpData")
-
+    
     
     const ScaleProvider = discontinuousTimeScaleProviderBuilder().inputDateAccessor(
         (d) => new Date(d.date)
