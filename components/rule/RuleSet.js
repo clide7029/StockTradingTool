@@ -14,6 +14,7 @@ const RuleSet = ({ruleCount, rules, setRules}) => {
       <div className="ruleSet">
         <ul>{ruleList}</ul> 
       </div>
+      
     )
 }
 

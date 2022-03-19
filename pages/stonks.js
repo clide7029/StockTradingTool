@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 import RuleForm from '../components/rule/RuleForm';
@@ -17,6 +17,10 @@ const stonks = () => {
   const [priceData, setPriceData] = useState();
   const [rules, setRules] = useState([])
 
+  useEffect(() => {
+    console.log(rules);
+  }, [rules])
+
   return (
   <div>
     <div className="graph">
@@ -31,6 +35,8 @@ const stonks = () => {
 
       <>
       {search && <p>{search.stock}<br></br>{search.interval}</p>}
+      {rules[0] && <p>{rules[0].indicator}<br/>{rules[0].timePeriod}<br/>{rules[0].seriesType}</p>}
+      {rules[1] && <p>{rules[1].indicator}<br/>{rules[1].timePeriod}<br/>{rules[1].seriesType}</p>}
       </>
       <>
       {ruleCount!=0 && <RuleSet ruleCount={ruleCount} rules={rules} setRules={setRules}></RuleSet>}

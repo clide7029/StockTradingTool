@@ -13,16 +13,25 @@ const Rule = ({ rules, setRules }) => {
   useEffect(() => {
     console.log(custom)
     if(custom){
-      setRule({
+
+      const data = {
         indicator:indicator,
         timePeriod:custom.timePeriod,
         seriesType:custom.seriesType
-      });
-      // setRules(rules.push(rule));
-      // console.log(rules)
-      console.dir(rule)
+      }
+      setRule(data);
+      // console.dir(custom)
+      // console.dir(data)
     }
-    }, [custom])
+  }, [custom])
+
+  useEffect(() => {
+    if(rule){
+      setRules((oldRules) => [...oldRules, rule]);
+      console.dir(rule);
+      console.dir(rules);
+    }
+  }, [rule])
 
   return (
   <div className={ruleStyle.rule}>
@@ -38,9 +47,11 @@ const Rule = ({ rules, setRules }) => {
 
     <>
     {rule && <p>{rule.indicator}</p>}
-    {custom && <p>{custom.timePeriod}</p>}
-    {custom && <p>{custom.seriesType}</p>}
+    {rule && <p>{rule.timePeriod}</p>}
+    {rule && <p>{rule.seriesType}</p>}
     </>
+
+    
 
 
   </div>
