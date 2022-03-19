@@ -1,24 +1,17 @@
-/*
-const { MongoClient, ServerApiVersion, ReturnDocument } = require('mongodb');
-//import { MongoClient, ServerApiVersion, ReturnDocument } from 'mongodb';
-import {dataTransformer} from "./utils";
-//const { MongoClient, ServerApiVersion } = require('mongodb');
-//const finnhub = require('finnhub');
-//import finnhub from 'finnhub';
-//const api_key = finnhub.ApiClient.instance.authentications['api_key'];
+import { MongoClient, ServerApiVersion, ReturnDocument } from 'mongodb';
+import fetch from 'node-fetch';
+import {dataTransformer} from "./utils.mjs";
 const uri = "mongodb+srv://J_scar:LbhnZFusqfoAyMoH@cluster0.kcrdt.mongodb.net/cluster0?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-api_key.apiKey = "c84b3jqad3ide9hei860"
-//const finnhubClient = new finnhub.DefaultApi()
 const input = 'BLUEACACIA LTD - CLASS A'
 
 //test()
-export async function test(){
+async function test(){
     try {
-        let Data6 = await DataPriceSpan("INTL BUSINESS MACHINES CORP", "D", '02/13/2019 23:31:30', '02/13/2020 23:31:30')
-        console.log(Data6)
+        let Data6 = await DataPriceSpan("INTL BUSINESS MACHINES CORP", "D", '09/07/2021 23:31:30', '09/13/2021 23:31:30')
+        //console.log(Data6)
         let Data2 = await DataPrice(input)
-        console.log(Data2)
+        //console.log(Data2)
         let Data3 = await DataStock(input)
         //console.log(Data3)
         let Data4 = await DataType("ADR")
@@ -28,7 +21,7 @@ export async function test(){
         
     } finally {
         //Ensures that the client will close when you finish/error
-        await client.close();
+        //await client.close();
         }
 
 }
@@ -39,14 +32,11 @@ export async function DataPrice(name) {
     const stock = database.collection('stock');
     const query = {description: name};
     const test = await stock.findOne(query, { projection: { _id: 0, symbol: 1 } });
-    //console.log(test.symbol);
-    var ret = 0;
-    finnhubClient.quote(test.symbol, (error, data, response) => {
-        //console.log(data)
-        database.collection('price').insertOne(data);
-    });
-    const returnVar = await database.collection('price').findOneAndDelete({}, {sort: { _id:-1} });
-    return dataTransformer(returnVar);
+    var url = 'https://finnhub.io/api/v1/quote?symbol='+ test.symbol +'&token=c84b3jqad3ide9hei860';
+    const response = await fetch(url);
+	const fetchData = await response.json();
+    await client.close();
+    return fetchData;
 }
 
 export async function DataPriceSpan(name, span, T1, T2) {
@@ -58,11 +48,14 @@ export async function DataPriceSpan(name, span, T1, T2) {
     var datum = Date.parse(T1);
     var UNIXDate = datum/1000;
     var datum2 = Date.parse(T2);
-    var UNIXDate2 = datum/1000;
-    finnhubClient.stockCandles(name, span, UNIXDate, UNIXDate2, (error, data, response) => {
-        return dataTransformer(data);
-    });
-    return await database.collection('price').findOneAndDelete({}, {sort: { _id:-1} });
+    var UNIXDate2 = datum2/1000;
+    var url = 'https://finnhub.io/api/v1/stock/candle?symbol='+test.symbol+'&resolution='+span+'&from='+UNIXDate+'&to='+UNIXDate2+'&token=c84b3jqad3ide9hei860';
+    const response = await fetch(url);
+	const fetchData = await response.json();
+    //console.log(url);
+    //console.log(fetchData);
+    await client.close();
+    return dataTransformer(fetchData);
 }
 
 export async function DataStock(name) {
@@ -73,6 +66,7 @@ export async function DataStock(name) {
     const query = {description: name};
     const test = await stock.findOne(query);
     //console.log(test);
+    await client.close();
     return test;
 }
 
@@ -83,6 +77,7 @@ export async function UserData(UID, Password) {
     const query = {UID: UID, Password: Password};
     const test = await stock.findOne(query);
     //console.log(test);
+    await client.close();
     return test;
 
 }
@@ -95,6 +90,6 @@ export async function DataType(type) {
     const query = {type: type};
     const test = await stock.find(query).toArray();
     //console.log(test);
+    await client.close();
     return test;
 }
-*/
