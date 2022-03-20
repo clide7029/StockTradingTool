@@ -53,7 +53,7 @@ const stonks = () => {
       <>
       {search && <p>{search.stock}<br></br>{search.interval}</p>}
 
-      {rules && rules.map((rule, i) => Object.entries(rules[i]).map(([key, value]) => <p>{value}</p> ))}
+      {rules && rules.map((rule, i) => Object.entries(rules[i]).map(([key, value]) => <p >{value}</p> ))}
       </>
       <>
       {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} /> }
