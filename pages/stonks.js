@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import {DataPriceSpan} from "../DB/querys.mjs"
 
 import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
@@ -27,7 +28,19 @@ const stonks = () => {
       
     // });
     console.log(rules);
-  }, [rules])
+  }, [rules]);
+
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await DataPriceSpan("INTL BUSINESS MACHINES CORP", "D", '09/07/2021 23:31:30', '09/13/2021 23:31:30')
+      return data;
+    }
+    data = getData()
+
+    console.log(data);
+
+  }, [simulating]);
 
   return (
   <div>
