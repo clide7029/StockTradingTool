@@ -103,7 +103,7 @@ const CandleStick = ({initialData}) => {
         <BarSeries fillStyle={volumeColor} yAccessor={volumeSeries} />
         </Chart>
         <Chart id={3} height={chartHeight} yExtents={candleChartExtents}>
-        <XAxis showGridLines showTickLabel={false} />
+        <XAxis showGridLines showTickLabel={true} />
         <YAxis showGridLines tickFormat={pricesDisplayFormat} />
         <CandlestickSeries />
         <MouseCoordinateY

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 // import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
 import Options from '../components/graph/Options';
+import SuperChart from '../components/graph/graphComponents/SuperChart';
 import Button from '../components/Button';
 import GenericFinancialChart from '../components/graph/GenericFinancialChart';
 import ReactFinancialChart from '../components/graph/ReactFinancialChart';
@@ -46,7 +47,7 @@ const stonks = () => {
         setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
         setStatDisplay={simClick}
       ></Options>
-      <GenericFinancialChart search = {search}/>
+      <GenericFinancialChart search = {search} rules = {rules}/>
       <>{priceData && <p>{priceData[11].ema12}</p>}</>
 
       <>
@@ -65,5 +66,5 @@ const stonks = () => {
     </div>
   </div>
 )};
-
+//<GenericFinancialChart search = {search}/>
 export default stonks;
