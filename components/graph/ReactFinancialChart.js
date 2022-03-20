@@ -227,11 +227,12 @@ const ReactFinancialChart = ({initialData, rules} ) => {
         <YAxis showGridLines tickFormat={pricesDisplayFormat} />
         <CandlestickSeries />
         <></>
-        {EMAS.map((n) => <LineSeries yAccessor={n.accessor()} strokeStyle={n.stroke()}/>)}
+        {EMAS.map((n,i) => <LineSeries key={i} yAccessor={n.accessor()} strokeStyle={n.stroke()}/>)}
+        {EMAS &&
         <CurrentCoordinate
             yAccessor={EMAS[0].accessor()}
             fillStyle={EMAS[0].stroke()}
-        />
+        />}
         <MouseCoordinateY
             rectWidth={margin.right}
             displayFormat={pricesDisplayFormat}
@@ -250,7 +251,7 @@ const ReactFinancialChart = ({initialData, rules} ) => {
             options= {movingAverageToolTipOptions}
         />
 
-        <ZoomButtons />
+<ZoomButtons />
         <OHLCTooltip origin={[8, 16]} />
         </Chart>
         {isForce && 
@@ -268,7 +269,7 @@ const ReactFinancialChart = ({initialData, rules} ) => {
             rectWidth={margin.right}
         displayFormat={pricesDisplayFormat}
         />
-        <LineSeries yAccessor={(d)=>d.forceIndex} fill = "FF0000"/>
+        <LineSeries key="" yAccessor={(d)=>d.forceIndex} fill = "FF0000"/>
         <SingleValueTooltip yAccessor={force.accessor()} yLabel="Force" origin={[8,16]}/>
         </Chart>}
         <CrossHairCursor />
