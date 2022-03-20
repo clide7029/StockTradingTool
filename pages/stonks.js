@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
 import Options from '../components/graph/Options';
+import SuperChart from '../components/graph/graphComponents/SuperChart';
 import GenericFinancialChart from '../components/graph/GenericFinancialChart';
 import ReactFinancialChart from '../components/graph/ReactFinancialChart';
 import stonkStyles from '../styles/Stock.module.css'
@@ -16,8 +17,7 @@ const stonks = () => {
   const [search, setSearch] = useState({stock: "AAPL", interval:"D"});
   const [priceData, setPriceData] = useState();
   const [rules, setRules] = useState([])
-
-  useEffect(() => {
+useEffect(() => {
     console.log(rules);
   }, [rules])
 
@@ -30,7 +30,7 @@ const stonks = () => {
         setRuleCount={setRuleCount}
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
-      <GenericFinancialChart search = {search}/>
+      <GenericFinancialChart search = {search} rules = {rules}/>
       <>{priceData && <p>{priceData[11].ema12}</p>}</>
 
       <>
@@ -45,5 +45,5 @@ const stonks = () => {
     </div>
   </div>
 )};
-
+//<GenericFinancialChart search = {search}/>
 export default stonks;
