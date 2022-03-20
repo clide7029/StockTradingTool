@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import {DataPriceSpan} from "../DB/querys.mjs"
+// import {DataPriceSpan} from "../DB/querys.mjs"
 
 import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
@@ -23,6 +23,8 @@ const stonks = () => {
   const [simulating, setSimulating] = useState(false);
   const [initialData, setInitialData] = useState();
 
+  const simClick = () => setSimulating(!simulating);
+
   useEffect(() => {
     // rules.forEach( rule => {
       
@@ -32,14 +34,8 @@ const stonks = () => {
 
 
   useEffect(() => {
-    const getData = async () => {
-      const data = await DataPriceSpan("INTL BUSINESS MACHINES CORP", "D", '09/07/2021 23:31:30', '09/13/2021 23:31:30')
-      return data;
-    }
-    data = getData()
 
-    console.log(data);
-
+    console.log(rules);
   }, [simulating]);
 
   return (
@@ -60,7 +56,7 @@ const stonks = () => {
       </>
       <>
       {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} /> }
-      {rules.length > 0 && <Button color={"green"} text={"simulate"} onclick={() => setSimulating(true)} />}
+      {rules.length > 0 && <Button color={"green"} text={"simulate"} onClick={simClick} />}
       {statDisplay && <p>DOGE TO THE MOON</p>}
       </>
       <>

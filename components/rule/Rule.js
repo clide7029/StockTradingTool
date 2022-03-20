@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import RuleForm from './RuleForm'
-import EMAForm from './EMAForm'
+import EMAForm from './forms.js/EMAForm'
 import MACDForm from './MACDForm'
 
 import ruleStyle from '../../styles/Rule.module.css';
@@ -64,18 +64,16 @@ const Rule = ({ rules, setRules }) => {
           <option value={""}>rules:</option>
           <option value={"EMA"}>EMA</option>
           <option value={"MACD"}>MACD</option>
+          <option value={"RSI"}>RSI</option>
+          <option value={"Force"}>Force</option>
+          <option value={"Volume"}>Volume</option>
       </select>
 
-      {indicator=="EMA" && 
-      <>
-      <EMAForm onSubmit={setCustom}></EMAForm>
-      </>
-      }
-      {indicator=="MACD" && 
-      <>
-      <MACDForm onSubmit={setCustom}></MACDForm>
-      </>
-      }
+      {indicator=="EMA" && <><EMAForm onSubmit={setCustom}/></>}
+      {indicator=="MACD" && <><MACDForm onSubmit={setCustom}/></>}
+      {indicator=="RSI" && <><RSIForm onSubmit={setCustom}/></>}
+      {indicator=="Force" && <><ForceForm onSubmit={setCustom}/></>}
+      {indicator=="Volume" && <><VolumeForm onSubmit={setCustom}/></>}
 
     
 
