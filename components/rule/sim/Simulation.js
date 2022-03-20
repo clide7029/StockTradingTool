@@ -1,35 +1,43 @@
-
+import Rule from '../Rule';
+import Rule from './Rule'
 
 class Simulation{
 
-    constructor(stock, priceSet, timePeriod, interval, ruleSet, risk){
+    constructor(stock, priceData, timePeriod, interval, rules, risk){
         this.stock = stock;
-        this.priceSet = priceSet;
+        this.priceData = priceData;
         this.timePeriod = timePeriod;
         this.interval = interval;
-        this.ruleSet = ruleSet;
+        this.rules = rules;
+        this.ruleData = [];
         this.risk = risk;
         // this.ruleSet = ruleSet.from({length:length(ruleSet)}, (rule)=>Rule(rule));
         this.holding = false;
-        this.positionPrice = 0;
     }
 
 
     run(){
 
-        
+        // for (let i = 0; i < rules.length; i++) {
+        //     evaluateRule();
+        // };
+        this.rules.forEach((rule,i) => {
+            this.ruleData[i] = this.evaluateRule(rule);
+        });
+
 
         for (let i = 0; i < priceSet.length; i++) {
-            onIntervalUpdate(priceSet[i], i);{
-
-            }
             
         }
 
     }
 
+    evaluateRule(rule){
+        var newRule = new Rule()
+    }
+
     onIntervalUpdate(candle, index){
-        ruleSet.forEach(Rule => {
+        rules.forEach(Rule => {
             if(Rule.evaluate(candle, index) == "BUY"){
                 return 
             }

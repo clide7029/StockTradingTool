@@ -11,23 +11,41 @@ class Rule{
         this.seriesType = seriesType;
     }
 
-
-    async getRule(){
-        let Trule;
-        try { 
-            Trule = await import(`./Rules/${this.indicator}.js`);
-        } catch (error) {
-            console.log(error);
+    getRule(rule){
+        switch (rule){
+            case "EMA":
+                return (() => this.ema);
+            case "MACD":
+                return (() => this.macd);
+            case "Force":
+                return (() => this.force)
         }
-        this.rule = new Trule(this.indicator, this.range, this.seriesType);
-        console.log(this.rule.getRuleData);
-        console.log("finished")
+        return null;
+    }
+
+    ema(priceData){
+        emaSignal = [];
+        for (let i = 0; i < priceData.length; i++) {
+            if(priceData[i].close >= priceData[i].ema){
+                emaSignal[i] = 1;
+            }else if(priceData[i].close < priceData[i].ema){
+                emaSignal[i] = -1;
+            }
+        }
+        return emaSignal;
+    }
+
+    macd(priceData){
+        macdSignal = [];
+        for (let i = 0; i < priceData.length; i++) {
+            if(priceData[i].close > priceData[i].macd){
+                macdSignal[i] = 1
+            }
+        }
+        return macdSignal;
     }
 
 
-    evaluate(){
-        return this.rule.evaluate;
-    }
 
 }
 
@@ -38,3 +56,17 @@ try {
 } catch (error) {
     console.log(error);
 }
+
+
+
+ // async getRule(){
+    //     let Trule;
+    //     try { 
+    //         Trule = await import(`./Rules/${this.indicator}.js`);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //     this.rule = new Trule(this.indicator, this.range, this.seriesType);
+    //     console.log(this.rule.getRuleData);
+    //     console.log("finished")
+    // }

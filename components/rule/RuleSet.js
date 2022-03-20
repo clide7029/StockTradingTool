@@ -3,18 +3,18 @@ import RuleForm from './RuleForm'
 
 const RuleSet = ({ruleCount, rules, setRules}) => {
 
-    let ruleList = [];
+    // let ruleList = [];
 
-    for(let i = 0; i < ruleCount; i++) {
-      ruleList.push(<Rule rules={rules} setRules={setRules}></Rule>)
-    }
+    // for(let i = 0; i < ruleCount; i++) {
+    //   ruleList.push(<Rule id={i} rules={rules} setRules={setRules}></Rule>)
+    // }
 
 
     return (
       <div className="ruleSet">
-        <ul>{ruleList}</ul> 
+        <Rule rules={rules} setRules={setRules}></Rule>
       </div>
-      
+
     )
 }
 
