@@ -1,33 +1,50 @@
 import { useEffect, useState } from 'react';
 
+// import {DataPriceSpan} from "../DB/querys.mjs"
 
 import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
 import Options from '../components/graph/Options';
 import SuperChart from '../components/graph/graphComponents/SuperChart';
+import Button from '../components/Button';
 import GenericFinancialChart from '../components/graph/GenericFinancialChart';
 import ReactFinancialChart from '../components/graph/ReactFinancialChart';
+import Simulator from '../components/rule/sim/Simulator';
+
 import stonkStyles from '../styles/Stock.module.css'
 import optionStyles from "../styles/Options.module.css";
 
 const stonks = () => {
 
-  const [ruleCount, setRuleCount] = useState(0);
+  const [ruleDisplay, setRuleDisplay] = useState(false);
   const [statDisplay, setStatDisplay] = useState(false);
   const [search, setSearch] = useState({stock: "AAPL", interval:"D"});
   const [priceData, setPriceData] = useState();
-  const [rules, setRules] = useState([])
-useEffect(() => {
+  const [rules, setRules] = useState([]);
+  const [simulating, setSimulating] = useState(false);
+  const [initialData, setInitialData] = useState();
+
+  const simClick = () => setSimulating(!simulating);
+
+  useEffect(() => {
+    // rules.forEach( rule => {
+      
+    // });
     console.log(rules);
-  }, [rules])
+  }, [rules]);
+
+
+  useEffect(() => {
+
+    console.log(rules);
+  }, [simulating]);
 
   return (
   <div>
     <div className="graph">
       <Options 
         setSearch={setSearch}
-        ruleCount={ruleCount}
-        setRuleCount={setRuleCount}
+        setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
       <GenericFinancialChart search = {search} rules = {rules}/>
@@ -35,12 +52,16 @@ useEffect(() => {
 
       <>
       {search && <p>{search.stock}<br></br>{search.interval}</p>}
-      {rules[0] && <p>{rules[0].indicator}<br/>{rules[0].timePeriod}<br/>{rules[0].seriesType}</p>}
-      {rules[1] && <p>{rules[1].indicator}<br/>{rules[1].timePeriod}<br/>{rules[1].seriesType}</p>}
+
+      {rules && rules.map((rule, i) => Object.entries(rules[i]).map(([key, value]) => <p>{value}</p> ))}
       </>
       <>
-      {ruleCount!=0 && <RuleSet ruleCount={ruleCount} rules={rules} setRules={setRules}></RuleSet>}
+      {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} /> }
+      {rules.length > 0 && <Button color={"green"} text={"simulate"} onClick={simClick} />}
       {statDisplay && <p>DOGE TO THE MOON</p>}
+      </>
+      <>
+      {simulating && <Simulator priceData={priceData} rules={rules} setSimulating={setSimulating} />}
       </>
     </div>
   </div>
