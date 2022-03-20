@@ -8,10 +8,8 @@ class Simulation{
     constructor(priceData, rules, risk){
         // this.stock = stock;
         this.priceData = priceData;
-        console.log("initialData");
-        console.log(initialData);
         
-
+        console.log("PRICE DATA");
         console.log(this.priceData)
         // this.timePeriod = timePeriod;
         // this.interval = interval;

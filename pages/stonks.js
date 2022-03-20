@@ -47,7 +47,7 @@ const stonks = () => {
         setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
         setStatDisplay={simClick}
       ></Options>
-      <GenericFinancialChart search = {search} rules = {rules}/>
+      <GenericFinancialChart search={search} setPriceData={setPriceData} rules={rules}/>
       <>{priceData && <p>{priceData[11].ema12}</p>}</>
 
       <>

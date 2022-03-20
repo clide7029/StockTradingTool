@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { format } from "d3-format";
 import { timeFormat } from "d3-time-format";
@@ -38,11 +38,14 @@ import {
     
 } from "react-financial-charts";
     
-const ReactFinancialChart = ({initialData, rules} ) => {
+const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
     console.log("initial")
     console.log(initialData)
     console.log("tmpData")
     
+    useEffect(() => {
+        setPriceData(initialData);
+    }, [initialData]);
     
     const ScaleProvider = discontinuousTimeScaleProviderBuilder().inputDateAccessor(
         (d) => d.date

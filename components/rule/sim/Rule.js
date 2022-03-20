@@ -11,8 +11,8 @@ class Rule{
     }
 
     evaluate(priceData){
-        console.log("out");
-        console.log(priceData[1]);
+        // console.log("out");
+        // console.log(priceData[1]);
         let stats = null;
         switch (this.rule.indicator){
             case "EMA":
@@ -40,11 +40,11 @@ class Rule{
     ema(priceData){
         let signal = [];
         for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].close >= priceData[i].ema){
+            if(priceData[i].close >= priceData[i][`ema${this.rule.timePeriod}`]){
                 console.log("buy");
                 priceData[i].trade = "BUY";
                 signal[i] = 1;
-            }else if(priceData[i].close < priceData[i].ema){
+            }else if(priceData[i].close < priceData[i][`ema${this.rule.timePeriod}`]){
                 signal[i] = -1;
             }
         }

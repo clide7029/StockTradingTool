@@ -2237,7 +2237,7 @@ let initialData = [
         "volume": 27379488
     }
   ];
-const GenericFinancialChart = ({search, rules}) => {
+const GenericFinancialChart = ({search, setPriceData, rules}) => {
   getData(search);
   const indicator = ""
   console.log("Initial Data Set")
@@ -2253,7 +2253,7 @@ const GenericFinancialChart = ({search, rules}) => {
     console.log("IN SUPER CHART RULES")
     console.log(rules)
       //return <SuperChart searchData = {initialData} rules = {rules}/>
-        return <ReactFinancialChart initialData = {initialData} rules = {rules}/>
+        return <ReactFinancialChart initialData={initialData} setPriceData={setPriceData} rules={rules}/>
     }
     console.log("giving page")
     return <CandleStick initialData = {initialData}/>
