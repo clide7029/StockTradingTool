@@ -37,8 +37,8 @@ const RuleForm = ({onSubmit}) => {
     const handleSubmit = e => {
         e.preventDefault();
         const data = {
-            buyVolume: buyVolume.current.value,
-            sellVolume: sellVolume.current.value,
+            buyVolume: buyVolumeRef.current.value,
+            sellVolume: sellVolumeRef.current.value,
         };
         onSubmit(data);
     };

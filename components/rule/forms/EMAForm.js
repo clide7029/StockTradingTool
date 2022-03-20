@@ -19,7 +19,7 @@ const SeriesMenu = forwardRef(({label}, ref) => {
       <div>
         <label className={ruleFormStyle.form_inline} >{label}</label>
         <select ref={ref} className={ruleStyle.ruleMenu}>
-          <option value={""}>seriesType:</option>
+          <option value={""}></option>
           <option value={"o"}>Open</option>
           <option value={"c"}>Close</option>
           <option value={"h"}>High</option>
@@ -31,7 +31,7 @@ const SeriesMenu = forwardRef(({label}, ref) => {
 
 //  onChange={e => setRule(e.target.value)}
 
-const RuleForm = ({onSubmit}) => {
+const EMAForm = ({onSubmit}) => {
     const timePeriodRef = useRef();
     const seriesTypeRef = useRef();
     const handleSubmit = e => {
@@ -55,4 +55,4 @@ const RuleForm = ({onSubmit}) => {
 
 
 
-export default RuleForm;
+export default EMAForm;

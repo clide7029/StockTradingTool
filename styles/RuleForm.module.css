@@ -1,8 +1,8 @@
-
 .form_inline {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
+    justify-content: space-between;
 }
 
 .form_inline label {
@@ -10,6 +10,14 @@
 }
 
 .form_inline input {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.form_inline select {
     vertical-align: middle;
     margin: 5px 10px 5px 0;
     padding: 10px;

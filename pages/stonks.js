@@ -47,13 +47,13 @@ const stonks = () => {
         setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
         setStatDisplay={simClick}
       ></Options>
-      <GenericFinancialChart search = {search} rules = {rules}/>
+      <GenericFinancialChart search={search} setPriceData={setPriceData} rules={rules}/>
       <>{priceData && <p>{priceData[11].ema12}</p>}</>
 
       <>
       {search && <p>{search.stock}<br></br>{search.interval}</p>}
 
-      {rules && rules.map((rule, i) => Object.entries(rules[i]).map(([key, value]) => <p>{value}</p> ))}
+      {rules && rules.map((rule, i) => Object.entries(rules[i]).map(([key, value]) => <p >{value}</p> ))}
       </>
       <>
       {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} /> }
