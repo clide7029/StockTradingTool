@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 
+// import {DataPriceSpan} from "../DB/querys.mjs"
 
-import RuleForm from '../components/rule/RuleForm';
+// import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
 import Options from '../components/graph/Options';
+import SuperChart from '../components/graph/graphComponents/SuperChart';
 import Button from '../components/Button';
 import GenericFinancialChart from '../components/graph/GenericFinancialChart';
 import ReactFinancialChart from '../components/graph/ReactFinancialChart';
@@ -22,6 +24,8 @@ const stonks = () => {
   const [simulating, setSimulating] = useState(false);
   const [initialData, setInitialData] = useState();
 
+  const simClick = () => setSimulating(!simulating);
+
   useEffect(() => {
     // rules.forEach( rule => {
       
@@ -31,14 +35,8 @@ const stonks = () => {
 
 
   useEffect(() => {
-    const getData = async () => {
-      const data = await fetch("http://localhost:5000/record/620a174b5f8e5f33d407adb8")
-      return data.json();;
-    }
-    var data = getData()
 
-    console.log(data);
-
+    console.log(rules);
   }, [simulating]);
 
   return (
@@ -47,9 +45,9 @@ const stonks = () => {
       <Options 
         setSearch={setSearch}
         setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
-        setStatDisplay={() => setStatDisplay(!statDisplay)}
+        setStatDisplay={simClick}
       ></Options>
-      <GenericFinancialChart search = {search}/>
+      <GenericFinancialChart search = {search} rules = {rules}/>
       <>{priceData && <p>{priceData[11].ema12}</p>}</>
 
       <>
@@ -59,7 +57,7 @@ const stonks = () => {
       </>
       <>
       {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} /> }
-      {rules.length > 0 && <Button color={"green"} text={"simulate"} onclick={() => setSimulating(true)} />}
+      {rules.length > 0 && <Button color={"green"} text={"simulate"} onClick={simClick} />}
       {statDisplay && <p>DOGE TO THE MOON</p>}
       </>
       <>
@@ -68,5 +66,5 @@ const stonks = () => {
     </div>
   </div>
 )};
-
+//<GenericFinancialChart search = {search}/>
 export default stonks;

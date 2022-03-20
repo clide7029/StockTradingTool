@@ -5,7 +5,8 @@ export function dataConverter(data) {
 	while(i < data.c.length) {
 		let tmpDate = new Date(data.t[i] * 1000)
 		returnData[i] = {
-			date : tmpDate.getFullYear() + "-" + tmpDate.getMonth() + "-" + tmpDate.getDate() + " " + tmpDate.getHours() + ":" + tmpDate.getMinutes() + ":" + tmpDate.getSeconds(),
+			date : tmpDate,
+            //tmpDate.getFullYear() + "-" + tmpDate.getMonth() + "-" + tmpDate.getDate() + " " + tmpDate.getHours() + ":" + tmpDate.getMinutes() + ":" + tmpDate.getSeconds(),
 			open : data.o[i],
 			low : data.l[i],
 			high : data.h[i],

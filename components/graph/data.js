@@ -94,7 +94,7 @@ export let initialData = [
         "high": 242.31,
         "close": 239.51,
         "volume": 25916337
-    }];/*,
+    },
     {
         "date": "2021-1-2 16:0:0",
         "open": 239.57,
@@ -2191,4 +2191,4 @@ export let initialData = [
         "close": 300.47,
         "volume": 27379488
     }
-];*/
+];

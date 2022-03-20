@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
-import RuleForm from './RuleForm'
-import EMAForm from './EMAForm'
-import MACDForm from './MACDForm'
+import RuleForm from './forms/RuleForm'
+import EMAForm from './forms/EMAForm'
+import MACDForm from './forms/MACDForm'
+import VolumeForm from './forms/VolumeForm'
+import RSIForm from './forms/RSIForm'
+import ForceForm from './forms/ForceForm'
 
 import ruleStyle from '../../styles/Rule.module.css';
 
@@ -64,18 +67,16 @@ const Rule = ({ rules, setRules }) => {
           <option value={""}>rules:</option>
           <option value={"EMA"}>EMA</option>
           <option value={"MACD"}>MACD</option>
+          <option value={"Volume"}>Volume</option>
+          <option value={"RSI"}>RSI</option>
+          <option value={"Force"}>Force</option>
       </select>
 
-      {indicator=="EMA" && 
-      <>
-      <EMAForm onSubmit={setCustom}></EMAForm>
-      </>
-      }
-      {indicator=="MACD" && 
-      <>
-      <MACDForm onSubmit={setCustom}></MACDForm>
-      </>
-      }
+      {indicator=="EMA" && <><EMAForm onSubmit={setCustom}/></>}
+      {indicator=="MACD" && <><MACDForm onSubmit={setCustom}/></>}
+      {indicator=="Volume" && <><VolumeForm onSubmit={setCustom}/></>}
+      {indicator=="RSI" && <><RSIForm onSubmit={setCustom}/></>}
+      {indicator=="Force" && <><ForceForm onSubmit={setCustom}/></>}
 
     
 

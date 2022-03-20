@@ -1,13 +1,28 @@
 
 import Rule from './Rule'
 
+import {initialData} from '../../graph/data'
+
 class Simulation{
 
-    constructor(stock, priceData, timePeriod, interval, rules, risk){
-        this.stock = stock;
-        this.priceData = priceData;
-        this.timePeriod = timePeriod;
-        this.interval = interval;
+    constructor(priceData, rules, risk){
+        // this.stock = stock;
+        // this.priceData = priceData;
+        console.log("initialData");
+        console.log(initialData);
+        let data = []
+        for (let i = 0; i < initialData.length; i++) {
+            data[i] = initialData[i];
+            if(i>2){
+                let avg = (initialData[i].close + initialData[i-1].close + initialData[i-2].close) / 3;
+                data[i].ema = avg;
+            }
+        }
+        this.priceData = data;
+
+        console.log(this.priceData)
+        // this.timePeriod = timePeriod;
+        // this.interval = interval;
         this.rules = rules;
         this.ruleData = [];
         this.risk = risk;
@@ -21,19 +36,41 @@ class Simulation{
         // for (let i = 0; i < rules.length; i++) {
         //     evaluateRule();
         // };
+
         this.rules.forEach((rule,i) => {
-            this.ruleData[i] = this.evaluateRule(rule);
+            const signal = this.evaluateRule(rule);
+            this.ruleData[i] = signal;
         });
 
-
-        for (let i = 0; i < priceSet.length; i++) {
-            
+        for (let i=0; i < this.ruleData.length; i++) {
+            let signalCount = 0;
+            for (let j=0; j < this.priceData.length; j++) {
+                // const indicator = this.rules[j].indicator;
+                signalCount += this.ruleData[i][j];
+            }
+            console.log("signalCount");
+            console.log(signalCount);
+            if(signalCount == this.rules.length-1){
+                if(this.holding == false){
+                    this.priceData[i].trade = "BUY";
+                }
+            }else if(signalCount == 1-this.rules.length){
+                if(this.holding == true){
+                    this.priceData[i].trade = "SELL";
+                }
+            }
         }
+
+        console.log(this.ruleData);
+
+        return this.priceData;
 
     }
 
     evaluateRule(rule){
-        var newRule = new Rule()
+        var newRule = new Rule(rule);
+        const tradeData = newRule.evaluate(this.priceData);
+        return tradeData;
     }
 
     onIntervalUpdate(candle, index){
@@ -54,3 +91,5 @@ class Simulation{
     }
 
 }
+
+export default Simulation;

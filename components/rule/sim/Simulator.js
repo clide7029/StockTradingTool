@@ -9,11 +9,16 @@ const Simulator = ({ priceData, rules, setSimulator }) => {
 
     const stats = sim.run();
 
+    console.log(stats);
 
     return (
         <>
-        
+            <p>simulation</p>
+            
         </>
     );
 
 }
+
+
+export default Simulator;

@@ -3,59 +3,126 @@
 
 class Rule{
 
-    constructor(indicator, range, seriesType){
-        this.indicator = indicator;
-        this.rule;
+    constructor(rule){
+        this.rule = rule;
         // this.ruleDir = "undefined";
-        this.range = range;
-        this.seriesType = seriesType;
+        // this.range = range;
+        // this.seriesType = seriesType;
     }
 
-    getRule(rule){
-        switch (rule){
+    evaluate(priceData){
+        console.log("out");
+        console.log(priceData[1]);
+        let stats = null;
+        switch (this.rule.indicator){
             case "EMA":
-                return (() => this.ema);
+                stats = this.ema(priceData);
+                break;
             case "MACD":
-                return (() => this.macd);
+                // stats = this.macd(priceData);
+                break;
+            case "Volume":
+                stats = this.volume(priceData);
+                break;
+            case "RSI":
+                stats = this.rsi(priceData);
+                break;
             case "Force":
-                return (() => this.force)
+                stats = this.force(priceData);
+                break;
         }
-        return null;
+
+        console.log("stats");
+        console.log(stats);
+        return stats;
     }
 
     ema(priceData){
-        emaSignal = [];
+        let signal = [];
         for (let i = 0; i < priceData.length; i++) {
             if(priceData[i].close >= priceData[i].ema){
-                emaSignal[i] = 1;
+                console.log("buy");
+                priceData[i].trade = "BUY";
+                signal[i] = 1;
             }else if(priceData[i].close < priceData[i].ema){
-                emaSignal[i] = -1;
+                signal[i] = -1;
             }
         }
-        return emaSignal;
+        return signal;
     }
 
-    macd(priceData){
-        macdSignal = [];
+    // macd(priceData){
+    //     let signal = [];
+    //     for (let i = 0; i < priceData.length; i++) {
+    //         if(priceData[i].close > priceData[i].macd){
+    //             signal[i] = 1
+    //         }else if(priceData[i].close < priceData[i].macd){
+    //             signal[i] = -1;
+    //         }  
+    //     }
+    //     return signal;
+    // }
+
+    volume(priceData){
+        let signal = [];
         for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].close > priceData[i].macd){
-                macdSignal[i] = 1
+            if(priceData[i].open < priceData[i].close){
+                if(priceData[i].volume > this.rule.buyVolume){
+                    signal[i] = 1
+                }
+            }else if(priceData[i].open > priceData[i].close){
+                if(priceData[i].volume > this.rule.sellVolume){
+                    signal[i] = -1
+                } 
             }
+        return signal;
         }
-        return macdSignal;
+    }
+    
+    rsi(priceData){
+        let signal = [];
+        for (let i = 0; i < priceData.length; i++) {
+            if(priceData[i].open < priceData[i].close){
+                if(priceData[i].rsi > this.rule.overSold){
+                    signal[i] = 1
+                }
+            }else if(priceData[i].open > priceData[i].close){
+                if(priceData[i].rsi > this.rule.overBought){
+                    signal[i] = -1
+                } 
+            }
+        return signal;
+        }
+    }
+
+    force(priceData){
+        let signal = [];
+        for (let i = 0; i < priceData.length; i++) {
+            if(priceData[i].open < priceData[i].close){
+                if(priceData[i].force > this.rule.upForce){
+                    signal[i] = 1
+                }
+            }else if(priceData[i].open > priceData[i].close){
+                if(priceData[i].force > this.rule.downForce){
+                    signal[i] = -1
+                } 
+            }
+        return signal;
+        }
     }
 
 
-
 }
 
-console.log("here")
-var test = new Rule("SMA", "1D", 'c');
-try {
-    test.getRule();
-} catch (error) {
-    console.log(error);
-}
+export default Rule;
+
+// console.log("here")
+// var test = new Rule("SMA", "1D", 'c');
+// try {
+//     test.getRule();
+// } catch (error) {
+//     console.log(error);
+// }
 
 
 
