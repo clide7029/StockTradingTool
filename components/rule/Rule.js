@@ -7,6 +7,7 @@ import RSIForm from './forms/RSIForm'
 import ForceForm from './forms/ForceForm'
 
 import ruleStyle from '../../styles/Rule.module.css';
+import ruleFormStyle from '../../styles/RuleForm.module.css';
 
 
 const Rule = ({ rules, setRules }) => {
@@ -63,25 +64,21 @@ const Rule = ({ rules, setRules }) => {
 
   return (
   <div className={ruleStyle.rule}>
+    <form className={ruleFormStyle.form_inline}>
       <select className={ruleStyle.ruleMenu} onChange={e => setIndicator(e.target.value)}>
-          <option value={""}>rules:</option>
+          <option value={""}>Select Indicator:</option>
           <option value={"EMA"}>EMA</option>
           <option value={"MACD"}>MACD</option>
           <option value={"Volume"}>Volume</option>
           <option value={"RSI"}>RSI</option>
           <option value={"Force"}>Force</option>
       </select>
-
+    </form>
       {indicator=="EMA" && <><EMAForm onSubmit={setCustom}/></>}
       {indicator=="MACD" && <><MACDForm onSubmit={setCustom}/></>}
       {indicator=="Volume" && <><VolumeForm onSubmit={setCustom}/></>}
       {indicator=="RSI" && <><RSIForm onSubmit={setCustom}/></>}
       {indicator=="Force" && <><ForceForm onSubmit={setCustom}/></>}
-
-    
-
-    
-
 
   </div>
   )};

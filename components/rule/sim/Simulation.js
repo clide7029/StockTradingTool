@@ -7,18 +7,10 @@ class Simulation{
 
     constructor(priceData, rules, risk){
         // this.stock = stock;
-        // this.priceData = priceData;
+        this.priceData = priceData;
         console.log("initialData");
         console.log(initialData);
-        let data = []
-        for (let i = 0; i < initialData.length; i++) {
-            data[i] = initialData[i];
-            if(i>2){
-                let avg = (initialData[i].close + initialData[i-1].close + initialData[i-2].close) / 3;
-                data[i].ema = avg;
-            }
-        }
-        this.priceData = data;
+        
 
         console.log(this.priceData)
         // this.timePeriod = timePeriod;
@@ -93,3 +85,16 @@ class Simulation{
 }
 
 export default Simulation;
+
+
+
+
+// let data = []
+//         for (let i = 0; i < initialData.length; i++) {
+//             data[i] = initialData[i];
+//             if(i>2){
+//                 let avg = (initialData[i].close + initialData[i-1].close + initialData[i-2].close) / 3;
+//                 data[i].ema = avg;
+//             }
+//         }
+//         this.priceData = data;
