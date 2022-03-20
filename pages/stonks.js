@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import {DataPriceSpan} from "../DB/querys.mjs"
 
 import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
@@ -33,10 +32,10 @@ const stonks = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await DataPriceSpan("INTL BUSINESS MACHINES CORP", "D", '09/07/2021 23:31:30', '09/13/2021 23:31:30')
-      return data;
+      const data = await fetch("http://localhost:5000/record/620a174b5f8e5f33d407adb8")
+      return data.json();;
     }
-    data = getData()
+    var data = getData()
 
     console.log(data);
 
