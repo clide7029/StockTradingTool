@@ -17,11 +17,19 @@ class Rule{
         switch (this.rule.indicator){
             case "EMA":
                 stats = this.ema(priceData);
+                break;
             case "MACD":
-                console.log("why inside macd?")
-                stats = this.macd(priceData);
-            // case "Force":
-            //     stats = this.force(priceData);
+                // stats = this.macd(priceData);
+                break;
+            case "Volume":
+                stats = this.volume(priceData);
+                break;
+            case "RSI":
+                stats = this.rsi(priceData);
+                break;
+            case "Force":
+                stats = this.force(priceData);
+                break;
         }
 
         console.log("stats");
@@ -30,29 +38,78 @@ class Rule{
     }
 
     ema(priceData){
-        let emaSignal = [];
+        let signal = [];
         for (let i = 0; i < priceData.length; i++) {
             if(priceData[i].close >= priceData[i].ema){
                 console.log("buy");
                 priceData[i].trade = "BUY";
-                emaSignal[i] = 1;
+                signal[i] = 1;
             }else if(priceData[i].close < priceData[i].ema){
-                emaSignal[i] = -1;
+                signal[i] = -1;
             }
         }
-        return emaSignal;
+        return signal;
     }
 
-    macd(priceData){
-        let macdSignal = [];
+    // macd(priceData){
+    //     let signal = [];
+    //     for (let i = 0; i < priceData.length; i++) {
+    //         if(priceData[i].close > priceData[i].macd){
+    //             signal[i] = 1
+    //         }else if(priceData[i].close < priceData[i].macd){
+    //             signal[i] = -1;
+    //         }  
+    //     }
+    //     return signal;
+    // }
+
+    volume(priceData){
+        let signal = [];
         for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].close > priceData[i].macd){
-                macdSignal[i] = 1
-            }  
+            if(priceData[i].open < priceData[i].close){
+                if(priceData[i].volume > this.rule.buyVolume){
+                    signal[i] = 1
+                }
+            }else if(priceData[i].open > priceData[i].close){
+                if(priceData[i].volume > this.rule.sellVolume){
+                    signal[i] = -1
+                } 
+            }
+        return signal;
         }
-        return macdSignal;
+    }
+    
+    rsi(priceData){
+        let signal = [];
+        for (let i = 0; i < priceData.length; i++) {
+            if(priceData[i].open < priceData[i].close){
+                if(priceData[i].rsi > this.rule.overSold){
+                    signal[i] = 1
+                }
+            }else if(priceData[i].open > priceData[i].close){
+                if(priceData[i].rsi > this.rule.overBought){
+                    signal[i] = -1
+                } 
+            }
+        return signal;
+        }
     }
 
+    force(priceData){
+        let signal = [];
+        for (let i = 0; i < priceData.length; i++) {
+            if(priceData[i].open < priceData[i].close){
+                if(priceData[i].force > this.rule.upForce){
+                    signal[i] = 1
+                }
+            }else if(priceData[i].open > priceData[i].close){
+                if(priceData[i].force > this.rule.downForce){
+                    signal[i] = -1
+                } 
+            }
+        return signal;
+        }
+    }
 
 
 }

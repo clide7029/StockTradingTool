@@ -1,7 +1,7 @@
 import { useState, useRef, forwardRef } from 'react';
 
-import ruleFormStyle from '../../styles/RuleForm.module.css'
-import ruleStyle from '../../styles/Rule.module.css'
+import ruleFormStyle from '../../../styles/RuleForm.module.css'
+import ruleStyle from '../../../styles/Rule.module.css'
 
 
 const Field = forwardRef(({label, type}, ref) => {
@@ -19,11 +19,11 @@ const SeriesMenu = forwardRef(({label}, ref) => {
       <div>
         <label className={ruleFormStyle.form_inline} >{label}</label>
         <select ref={ref} className={ruleStyle.ruleMenu}>
-          <option value={""}>seriesType:</option>
-          <option value={"o"}>Open</option>
-          <option value={"c"}>Close</option>
-          <option value={"h"}>High</option>
-          <option value={"l"}>Low</option>
+          <option value={""}>Magnitude:</option>
+          <option value={"100000"}>100k</option>
+          <option value={"1000000"}>1M</option>
+          <option value={"10000000"}>10M</option>
+          <option value={"1_000_000_000"}>1B</option>
       </select>
       </div>
     );
@@ -32,20 +32,20 @@ const SeriesMenu = forwardRef(({label}, ref) => {
 //  onChange={e => setRule(e.target.value)}
 
 const RuleForm = ({onSubmit}) => {
-    const timePeriodRef = useRef();
-    const seriesTypeRef = useRef();
+    const upForceRef = useRef();
+    const downForceRef = useRef();
     const handleSubmit = e => {
         e.preventDefault();
         const data = {
-            timePeriod: timePeriodRef.current.value,
-            seriesType: seriesTypeRef.current.value
+            upForce: upForceRef.current.value,
+            downForce: downForceRef.current.value
         };
         onSubmit(data);
     };
     return (
       <form className={ruleFormStyle.form_inline} onSubmit={handleSubmit} >
-        <Field ref={timePeriodRef} label="Time Period:" type="number" />
-        <SeriesMenu ref={seriesTypeRef} label="Series Type:" />
+        <SeriesMenu ref={upForceRef} label="Up-Force:" />
+        <SeriesMenu ref={downForceRef} label="Down-Force:" />
         <div>
           <button className={ruleFormStyle.form_inline} type="submit">Submit</button>
         </div>

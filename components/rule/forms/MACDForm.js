@@ -1,7 +1,7 @@
 import { useState, useRef, forwardRef } from 'react';
 
-import ruleFormStyle from '../../styles/RuleForm.module.css'
-import ruleStyle from '../../styles/Rule.module.css'
+import ruleFormStyle from '../../../styles/RuleForm.module.css'
+import ruleStyle from '../../../styles/Rule.module.css'
 
 
 const Field = forwardRef(({label, type}, ref) => {
@@ -32,20 +32,23 @@ const SeriesMenu = forwardRef(({label}, ref) => {
 //  onChange={e => setRule(e.target.value)}
 
 const RuleForm = ({onSubmit}) => {
-    const timePeriodRef = useRef();
-    const seriesTypeRef = useRef();
+    const shortPeriodRef = useRef();
+    const longPeriodRef = useRef();
+    const signalRef = useRef();
     const handleSubmit = e => {
         e.preventDefault();
         const data = {
-            timePeriod: timePeriodRef.current.value,
-            seriesType: seriesTypeRef.current.value
+            shortPeriod: shortPeriodRef.current.value,
+            longPeriod: longPeriodRef.current.value,
+            signal: signalRef.current.value
         };
         onSubmit(data);
     };
     return (
       <form className={ruleFormStyle.form_inline} onSubmit={handleSubmit} >
-        <Field ref={timePeriodRef} label="Time Period:" type="number" />
-        <SeriesMenu ref={seriesTypeRef} label="Series Type:" />
+        <Field ref={shortPeriodRef} label="Short Period:" type="number" />
+        <Field ref={longPeriodRef} label="Long Period:" type="number" />
+        <Field ref={signalRef} label="Signal:" type="number" />
         <div>
           <button className={ruleFormStyle.form_inline} type="submit">Submit</button>
         </div>

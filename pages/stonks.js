@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 // import {DataPriceSpan} from "../DB/querys.mjs"
 
-import RuleForm from '../components/rule/RuleForm';
+// import RuleForm from '../components/rule/RuleForm';
 import RuleSet from '../components/rule/RuleSet';
 import Options from '../components/graph/Options';
 import Button from '../components/Button';
@@ -44,7 +44,7 @@ const stonks = () => {
       <Options 
         setSearch={setSearch}
         setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
-        setStatDisplay={() => setStatDisplay(!statDisplay)}
+        setStatDisplay={simClick}
       ></Options>
       <GenericFinancialChart search = {search}/>
       <>{priceData && <p>{priceData[11].ema12}</p>}</>

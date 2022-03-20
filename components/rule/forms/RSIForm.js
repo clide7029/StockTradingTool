@@ -1,7 +1,7 @@
 import { useState, useRef, forwardRef } from 'react';
 
-import ruleFormStyle from '../../styles/RuleForm.module.css'
-import ruleStyle from '../../styles/Rule.module.css'
+import ruleFormStyle from '../../../styles/RuleForm.module.css'
+import ruleStyle from '../../../styles/Rule.module.css'
 
 
 const Field = forwardRef(({label, type}, ref) => {
@@ -9,7 +9,7 @@ const Field = forwardRef(({label, type}, ref) => {
       <div>
         <label className={ruleFormStyle.form_inline} >{label}</label>
         <input ref={ref} type={type} className={ruleFormStyle.form_inline} 
-        min="1" max="5000"/>
+        min="0" max="100`"/>
       </div>
     );
 });
@@ -32,23 +32,20 @@ const SeriesMenu = forwardRef(({label}, ref) => {
 //  onChange={e => setRule(e.target.value)}
 
 const RuleForm = ({onSubmit}) => {
-    const shortPeriodRef = useRef();
-    const longPeriodRef = useRef();
-    const seriesTypeRef = useRef();
+    const overBoughtRef = useRef();
+    const overSoldRef = useRef();
     const handleSubmit = e => {
         e.preventDefault();
         const data = {
-            shortPeriod: shortPeriodRef.current.value,
-            longPeriod: longPeriodRef.current.value,
-            seriesType: seriesTypeRef.current.value
+            overBought: overBoughtRef.current.value,
+            overSold: overSoldRef.current.value
         };
         onSubmit(data);
     };
     return (
       <form className={ruleFormStyle.form_inline} onSubmit={handleSubmit} >
-        <Field ref={shortPeriodRef} label="Short Period:" type="number" />
-        <Field ref={longPeriodRef} label="Long Period:" type="number" />
-        <SeriesMenu ref={seriesTypeRef} label="Series Type:" />
+        <Field ref={overBoughtRef} label="Over Bought @:" type="number" />
+        <Field ref={overSoldRef} label="Over Sold @:" type="number" />
         <div>
           <button className={ruleFormStyle.form_inline} type="submit">Submit</button>
         </div>

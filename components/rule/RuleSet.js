@@ -1,5 +1,4 @@
 import Rule from './Rule'
-import RuleForm from './RuleForm'
 
 const RuleSet = ({ruleCount, rules, setRules}) => {
 

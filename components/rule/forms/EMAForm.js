@@ -1,7 +1,7 @@
 import { useState, useRef, forwardRef } from 'react';
 
-import ruleFormStyle from '../../styles/RuleForm.module.css'
-import ruleStyle from '../../styles/Rule.module.css'
+import ruleFormStyle from '../../../styles/RuleForm.module.css'
+import ruleStyle from '../../../styles/Rule.module.css'
 
 
 const Field = forwardRef(({label, type}, ref) => {
