@@ -98,7 +98,7 @@ class login extends Component {
     });
 
     // Post request to backend
-    fetch('../../api/signin', {
+    fetch('../components/sign/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -138,7 +138,7 @@ class login extends Component {
     });
 
     // Post request to backend
-    fetch('../../api/signin', {
+    fetch('../components/sign/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
