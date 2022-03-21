@@ -41,11 +41,13 @@ class Rule{
         let signal = [];
         for (let i = 0; i < priceData.length; i++) {
             if(priceData[i].close >= priceData[i][`ema${this.rule.timePeriod}`]){
-                console.log("buy");
-                priceData[i].trade = "BUY";
+                // console.log("buy");
+                // priceData[i].trade = "BUY";
                 signal[i] = 1;
             }else if(priceData[i].close < priceData[i][`ema${this.rule.timePeriod}`]){
                 signal[i] = -1;
+            }else{
+                signal[i] = 0;
             }
         }
         return signal;
@@ -59,7 +61,9 @@ class Rule{
     //         }else if(priceData[i].close < priceData[i].macd){
     //             signal[i] = -1;
     //         }  
-    //     }
+    //     }else{
+                // signal[i] = 0;
+            // }
     //     return signal;
     // }
 
@@ -74,6 +78,8 @@ class Rule{
                 if(priceData[i].volume > this.rule.sellVolume){
                     signal[i] = -1
                 } 
+            }else{
+                signal[i] = 0;
             }
         return signal;
         }
@@ -90,6 +96,8 @@ class Rule{
                 if(priceData[i].rsi > this.rule.overBought){
                     signal[i] = -1
                 } 
+            }else{
+                signal[i] = 0;
             }
         return signal;
         }
@@ -106,6 +114,8 @@ class Rule{
                 if(priceData[i].force > this.rule.downForce){
                     signal[i] = -1
                 } 
+            }else{
+                signal[i] = 0;
             }
         return signal;
         }

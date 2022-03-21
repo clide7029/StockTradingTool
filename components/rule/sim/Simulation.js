@@ -18,6 +18,7 @@ class Simulation{
         this.risk = risk;
         // this.ruleSet = ruleSet.from({length:length(ruleSet)}, (rule)=>Rule(rule));
         this.holding = false;
+        this.tradeList = [];
     }
 
 
@@ -32,28 +33,37 @@ class Simulation{
             this.ruleData[i] = signal;
         });
 
-        for (let i=0; i < this.ruleData.length; i++) {
+        console.log("ruleData");
+        console.log(this.ruleData);
+
+        for (let i=0; i < this.priceData.length; i++) {
             let signalCount = 0;
-            for (let j=0; j < this.priceData.length; j++) {
+            for (let j=0; j < this.ruleData.length; j++) {
                 // const indicator = this.rules[j].indicator;
-                signalCount += this.ruleData[i][j];
+                // console.log(`i = ${i} j = ${j}`);
+                // console.log(`rule data type = ${typeof(this.ruleData[i])}`)
+                // console.log(`dataPoint ${j} has signal ${this.ruleData[i][j]}`)
+                signalCount += this.ruleData[j][i];
             }
-            console.log("signalCount");
-            console.log(signalCount);
-            if(signalCount == this.rules.length-1){
+            if(signalCount == this.rules.length){
                 if(this.holding == false){
                     this.priceData[i].trade = "BUY";
+                    this.holding = true;
+                    this.tradeList.push({"BUY": i});
                 }
-            }else if(signalCount == 1-this.rules.length){
+            }else if(signalCount == -this.rules.length){
                 if(this.holding == true){
                     this.priceData[i].trade = "SELL";
+                    this.holding = false;
+                    this.tradeList.push({"SELL": i});
                 }
             }
         }
 
-        console.log(this.ruleData);
+        console.log("tradeList");
+        console.log(this.tradeList);
 
-        return this.priceData;
+        return this.tradeList;
 
     }
 

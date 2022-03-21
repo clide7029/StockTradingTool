@@ -21,10 +21,11 @@ const stonks = () => {
   const [search, setSearch] = useState({stock: "AAPL", interval:"D"});
   const [priceData, setPriceData] = useState();
   const [rules, setRules] = useState([]);
+  const [stats, setStats] = useState();
   const [simulating, setSimulating] = useState(false);
   const [initialData, setInitialData] = useState();
 
-  const simClick = () => setSimulating(!simulating);
+  const simClick = () => setSimulating(true);
 
   useEffect(() => {
     // rules.forEach( rule => {
@@ -36,7 +37,9 @@ const stonks = () => {
 
   useEffect(() => {
 
-    console.log(rules);
+    // console.log(rules);
+    console.log("simulation stats");
+    console.log(stats);
   }, [simulating]);
 
   return (
@@ -45,7 +48,7 @@ const stonks = () => {
       <Options 
         setSearch={setSearch}
         setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
-        setStatDisplay={simClick}
+        setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
       <GenericFinancialChart search={search} setPriceData={setPriceData} rules={rules}/>
       <>{priceData && <p>{priceData[11].ema12}</p>}</>
@@ -56,12 +59,15 @@ const stonks = () => {
       {rules && rules.map((rule, i) => Object.entries(rules[i]).map(([key, value]) => <p >{value}</p> ))}
       </>
       <>
-      {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} /> }
+      {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} />}
       {rules.length > 0 && <Button color={"green"} text={"simulate"} onClick={simClick} />}
       {statDisplay && <p>DOGE TO THE MOON</p>}
       </>
       <>
-      {simulating && <Simulator priceData={priceData} rules={rules} setSimulating={setSimulating} />}
+      {simulating && <Simulator priceData={priceData} rules={rules} setStats={setStats} setStatDisplay={setStatDisplay} setSimulating={setSimulating} />}
+      {statDisplay && stats.map((stat, i) => Object.entries(stats[i]).map(([key, value]) => <p >{key}  {value}</p> ))}
+      
+      
       </>
     </div>
   </div>
