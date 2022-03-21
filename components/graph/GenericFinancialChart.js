@@ -2269,7 +2269,7 @@ export async function getServerSideProps(context) {
 
 const getData = async (search, setInitialData) => {
   try {
-    const response =  await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1610669676&to=1644884076&token=c8qlb5qad3ienapjoalg')
+    const response =  await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1490053980&to=1644884076&token=c8qlb5qad3ienapjoalg')
     console.log(response)
     if(!response.ok) {
       throw new Error();

@@ -17,7 +17,8 @@ export function dataConverter(data) {
 		i++;
 	}
 	//console.log(returnData)
-	let j = returnData.length -1;
+	/*
+    let j = returnData.length -1;
 	console.log("Elems:" + j)
 	//let k = 0;
 	const tmpReturnData = [];
@@ -26,7 +27,8 @@ export function dataConverter(data) {
 		j--;
 	}
 	console.log(tmpReturnData)
-	return tmpReturnData;
+	*/
+    return returnData;
 }
 export let initialData = [
     {
@@ -2223,7 +2225,7 @@ export let initialData = [
     }
 ];
 export async function fetchData(search) {
-	let response = fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1610669676&to=1644884076&token=c6im5hiad3i8jt9dugng');
+	let response = fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1490053980&to=1644884076&token=c6im5hiad3i8jt9dugng');
 	response = await response.json()
 	initialData = dataConverter(response);
 }

@@ -56,7 +56,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
     const ema12 = undefined;
     const elder = elderRay();
     const force = forceIndex();
-    const RSI = new RSISeries();
+    const RSI = new RSISeries(initialData);
     //console.log("TIMEPERIOD")
     //console.log(rules[0].timePeriod)
     //const windowSize = 0;
@@ -108,7 +108,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
                 isForce = true;
                 numUniqueCharts++;
             }
-            else if(n.indicator != "Elder") {
+            else if(n.indicator == "Elder") {
                 let ema12 = ema()
                     .options({ windowSize: windowSize})
                     .merge((d, c) => {
@@ -125,11 +125,21 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
                 isElder == true;
             }
             else if(n.indicator == "RSI") {
-                numUniqueCharts++;
+                if(isRSI == true) {
+                    rules[n].remove();
+                }
+                else{
+                    isRSI = true;
+                    numUniqueCharts++;
+                }
             }
             else if(n.indicator == "Volume"){
-                isVolume = true;
-                numUniqueCharts++;
+                if(isVolume == true){
+                    rules[n].remove();
+                }
+                else{
+                    isVolume = true;
+                }
             }
             i++;
         } 
@@ -138,7 +148,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
         secondChartHeight = 100;
     }
     if(numUniqueCharts >= 2) {
-        thirdChart = 100;
+        thirdChartHeight = 100;
     }
     console.log("EMA, Force, Elder");
     console.log(numEMA);
@@ -160,9 +170,8 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
 
     const gridHeight = height - margin.top - margin.bottom;
 
-
-
     const secondChartOrigin = (_, h) => [0, h - secondChartHeight - thirdChartHeight];
+    const thirdChartOrigin = (_,h) => [0, h - secondChartHeight];
     const barChartHeight = gridHeight / 4;
     const barChartOrigin = (_, h) => [0, h - barChartHeight - secondChartHeight - thirdChartHeight];
     //const barChartOrigin = (_, h) => [0, h - barChartHeight];
@@ -231,7 +240,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
         <CandlestickSeries />
         <></>
         {EMAS.map((n,i) => <LineSeries key={i} yAccessor={n.accessor()} strokeStyle={n.stroke()}/>)}
-        {EMAS &&
+        {numEMA != 0 &&
         <CurrentCoordinate
             yAccessor={EMAS[0].accessor()}
             fillStyle={EMAS[0].stroke()}
@@ -268,13 +277,25 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
         <XAxis showGridLines gridLinesStrokeStyle="#e0e3eb" />
         <YAxis ticks={4} tickFormat={pricesDisplayFormat} />
         <MouseCoordinateX displayFormat={timeDisplayFormat} />
-        <MouseCoordinateY
-            rectWidth={margin.right}
-        displayFormat={pricesDisplayFormat}
-        />
-        <LineSeries key="" yAccessor={(d)=>d.forceIndex} fill = "FF0000"/>
+        <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat}/>
+        <LineSeries key="Force" yAccessor={(d)=>d.forceIndex} fill = "FF0000"/>
         <SingleValueTooltip yAccessor={force.accessor()} yLabel="Force" origin={[8,16]}/>
         </Chart>}
+        {isRSI &&
+            <Chart
+                id={6}
+                height={thirdChartHeight}
+                yExtents={force.accessor()}
+                origin={thirdChartOrigin}
+                padding={{top:8, bottom:8}}
+            >
+            <XAxis showGridLines gridLinesStrokeStyle="#e0e3eb" />
+            <YAxis ticks={4} tickFormat={pricesDisplayFormat} />
+            <MouseCoordinateX displayFormat={timeDisplayFormat} />
+        <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat}/>
+            <LineSeries key="Force" yAccessor={(d)=>d.forceIndex} fill = "FF0000"/>
+                </Chart>
+        }
         <CrossHairCursor />
     </ChartCanvas>
     );
