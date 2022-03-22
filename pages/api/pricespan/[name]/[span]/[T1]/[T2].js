@@ -1,5 +1,6 @@
 import { connectToDatabase } from "../../../../../../util/mongodb.js";
 import fetch from 'node-fetch';
+import {dataTransformer} from "./utils.mjs";
 export default async ({ query: { name, span, T1, T2}}, res) => {
     const { db } = await connectToDatabase();
     const stock = await db
@@ -12,5 +13,5 @@ export default async ({ query: { name, span, T1, T2}}, res) => {
     var url = 'https://finnhub.io/api/v1/stock/candle?symbol='+stock.symbol+'&resolution='+span+'&from='+T1+'&to='+T2+'&token=c84b3jqad3ide9hei860';
     const response = await fetch(url);
 	const fetchData = await response.json();
-    res.json(fetchData);
+    res.json(dataTransformer(fetchData));
 };
