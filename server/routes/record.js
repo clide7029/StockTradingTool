@@ -48,7 +48,7 @@ recordRoutes.route("/record/name/:name").get(function (req, res) {
         });
   });
 
-recordRoutes.route("//user/:username&:password").get(function (req, res) {
+recordRoutes.route("../../user/:username&:password").get(function (req, res) {
     let db_connect = dbo.getDb("stockData");
     let myquery = { username: req.params.username,  password: req.params.password};
     db_connect
