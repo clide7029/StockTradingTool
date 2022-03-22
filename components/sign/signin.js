@@ -3,7 +3,7 @@ module.exports = (app) => {
   /*
    * Sign up / Sign In
    */
-  fetch('../components/sign/signin', (req, res, next) => {
+  fetch('../components/sign/signin', (req, res) => {
     const { body } = req;
     const {
       password
