@@ -1,5 +1,5 @@
 import Meta from '../components/Meta'
-
+import app from './api/user'
 const about = () => {
   return (
     <div>
