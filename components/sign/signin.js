@@ -3,7 +3,7 @@ module.exports = (app) => {
   /*
    * Sign up / Sign In
    */
-  fetch('../components/sign/signin', (req, res) => {
+  fetch('../api/account/signup', (req, res) => {
     const { body } = req;
     const {
       password
@@ -23,8 +23,8 @@ module.exports = (app) => {
         success: false,
         message: 'Error: Password cannot be blank.'
       });
-    }    username = username.toLowerCase();
-    username = username.trim();    // Steps:
+    }    //username = username.toLowerCase();
+    //username = username.trim();    // Steps:
     // 1. Verify username doesn't exist
     // 2. Save
     User.find({
