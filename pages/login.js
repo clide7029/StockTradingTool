@@ -36,7 +36,7 @@ class login extends Component {
   }
   
   componentDidMount() {
-    const obj = getFromStorage('the_main_app');
+    const obj = getFromStorage("StockTradingTool");
     if (obj && obj.token) {
       const { token } = obj;
       // Verify token
@@ -77,14 +77,17 @@ class login extends Component {
   onTextboxChangeSignUpUsername(event) {
     this.setState({
       signUpUsername: event.target.value,
+      
     });
   }
 
   onTextboxChangeSignUpPassword(event) {
     this.setState({
       signUpPassword: event.target.value,
+     
     });
   }
+  
 
   onSignUp() {
     // Grab state
@@ -105,10 +108,12 @@ class login extends Component {
       },
       body: JSON.stringify({
         username: signUpUsername,
-        password: signUpPassword,
+        password: signUpPassword  
       }),
     }).then(res => res.json())
       .then(json => {
+        console.log(signUpUsername);
+        console.log(signUpPassword);
         console.log('json', json);
         if (json.success) {
           this.setState({
@@ -116,6 +121,7 @@ class login extends Component {
             isLoading: false,
             signUpUsername: '',
             signUpPassword: '',
+  
           });
         } else {
           this.setState({
@@ -125,6 +131,8 @@ class login extends Component {
         }
       });
   }
+
+  
 
   onSignIn() {
     // Grab state
@@ -138,20 +146,20 @@ class login extends Component {
     });
 
     // Post request to backend
-    fetch('../components/sign/signin', {
+    fetch('../api/account/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: signInUsername,
-        password: signInPassword,
+        "username": signInUsername,
+        "password": signInPassword,
       }),
     }).then(res => res.json())
       .then(json => {
         console.log('json', json);
         if (json.success) {
-          setInStorage('the_main_app', { token: json.token });
+          setInStorage("StockTradingTool", { token: json.token });
           this.setState({
             signInError: json.message,
             isLoading: false,
@@ -172,7 +180,7 @@ class login extends Component {
     this.setState({
       isLoading: true,
     });
-    const obj = getFromStorage('the_main_app');
+    const obj = getFromStorage("StockTradingTool");
     if (obj && obj.token) {
       const { token } = obj;
       // Verify token
