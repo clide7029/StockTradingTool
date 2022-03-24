@@ -1,9 +1,9 @@
 import User from '../../user/Users';
-module.exports = (app) => {
+module.exports = () => {
   /*
    * Sign up / Sign In
    */
-  fetch('../api/account/signup', (req, res) => {
+  fetch('../pages/login', (req, res) => {
     const { body } = req;
     const {
       password
@@ -43,7 +43,7 @@ module.exports = (app) => {
       }      // Save the new user
       const newUser = new User();      newUser.username = username;
       newUser.password = newUser.generateHash(password);
-      newUser.save((err, user) => {
+      newUser.save((err, newUser) => {
         if (err) {
           return res.send({
             success: false,
