@@ -5,6 +5,7 @@ import MACDForm from './forms/MACDForm'
 import VolumeForm from './forms/VolumeForm'
 import RSIForm from './forms/RSIForm'
 import ForceForm from './forms/ForceForm'
+import Button from '../Button'
 
 import ruleStyle from '../../styles/Rule.module.css';
 import ruleFormStyle from '../../styles/RuleForm.module.css';
@@ -62,6 +63,10 @@ const Rule = ({ rules, setRules }) => {
     }
   }, [indicator])
 
+  const resetRules = () => {
+    setRules([]);
+  }
+
   return (
   <div className={ruleStyle.rule}>
     <form className={ruleFormStyle.form_inline}>
@@ -73,6 +78,9 @@ const Rule = ({ rules, setRules }) => {
           <option value={"RSI"}>RSI</option>
           <option value={"Force"}>Force</option>
       </select>
+
+      {rules && <Button color="red" text="clear rules" onClick={() => setRules([])} />}
+
     </form>
       {indicator=="EMA" && <><EMAForm onSubmit={setCustom}/></>}
       {indicator=="MACD" && <><MACDForm onSubmit={setCustom}/></>}

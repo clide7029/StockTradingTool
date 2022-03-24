@@ -81,44 +81,45 @@ class Rule{
             }else{
                 signal[i] = 0;
             }
-        return signal;
         }
+        return signal;
+
     }
     
-    rsi(priceData){
-        let signal = [];
-        for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].open < priceData[i].close){
-                if(priceData[i].rsi > this.rule.overSold){
-                    signal[i] = 1
-                }
-            }else if(priceData[i].open > priceData[i].close){
-                if(priceData[i].rsi > this.rule.overBought){
-                    signal[i] = -1
-                } 
-            }else{
-                signal[i] = 0;
-            }
-        return signal;
-        }
-    }
+    // rsi(priceData){
+    //     let signal = [];
+    //     for (let i = 0; i < priceData.length; i++) {
+    //         if(priceData[i].open < priceData[i].close){
+    //             if(priceData[i].rsi > this.rule.overSold){
+    //                 signal[i] = 1
+    //             }
+    //         }else if(priceData[i].open > priceData[i].close){
+    //             if(priceData[i].rsi > this.rule.overBought){
+    //                 signal[i] = -1
+    //             } 
+    //         }else{
+    //             signal[i] = 0;
+    //         }
+    //     }
+    //     return signal;
+    // }
 
     force(priceData){
         let signal = [];
         for (let i = 0; i < priceData.length; i++) {
             if(priceData[i].open < priceData[i].close){
-                if(priceData[i].force > this.rule.upForce){
+                if(priceData[i].forceIndex > this.rule.upForce){
                     signal[i] = 1
                 }
             }else if(priceData[i].open > priceData[i].close){
-                if(priceData[i].force > this.rule.downForce){
+                if(priceData[i].forceIndex < -this.rule.downForce){
                     signal[i] = -1
                 } 
             }else{
                 signal[i] = 0;
             }
-        return signal;
         }
+        return signal;
     }
 
 

@@ -1,5 +1,7 @@
 import { useState, useRef, forwardRef } from 'react';
 
+import Button from '../Button';
+
 import optionStyle from '../../styles/Options.module.css'
 import ruleStyle from '../../styles/Rule.module.css'
 
@@ -45,10 +47,12 @@ const Search = ({onSubmit}) => {
         <SearchField ref={searchRef} placeholder="select stock" type="search" />
         <IntervalMenu ref={intervalRef} />
         <div>
-          <button className={optionStyle.options_inline} type="submit">S</button>
+            <Button color={"steelblue"} text={"search"} onClick={handleSubmit} />
         </div>
       </form>
     );
 };
 
 export default Search;
+
+          // <button className={optionStyle.options_inline} type="submit">S</button>

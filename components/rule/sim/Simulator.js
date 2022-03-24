@@ -12,7 +12,7 @@ const Simulator = ({ priceData, rules, setStats, setStatDisplay, setSimulating }
     setStats(stats);
     setStatDisplay(true);
 
-    setSimulating(false);
+    // setSimulating(false);
 
     return (
         <>

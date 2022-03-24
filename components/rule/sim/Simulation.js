@@ -19,6 +19,10 @@ class Simulation{
         // this.ruleSet = ruleSet.from({length:length(ruleSet)}, (rule)=>Rule(rule));
         this.holding = false;
         this.tradeList = [];
+        this.position = null;
+        this.capital = 1000;
+        this.ruleProfit = 1;
+        this.stockProfit = 0;
     }
 
 
@@ -49,19 +53,39 @@ class Simulation{
                 if(this.holding == false){
                     this.priceData[i].trade = "BUY";
                     this.holding = true;
-                    this.tradeList.push({"BUY": i});
+                    this.position = this.priceData[i].close;
+                    this.tradeList.push({
+                        idx: i,
+                        trade: "BUY",
+                        price: this.priceData[i].close
+                    });
                 }
             }else if(signalCount == -this.rules.length){
                 if(this.holding == true){
                     this.priceData[i].trade = "SELL";
                     this.holding = false;
-                    this.tradeList.push({"SELL": i});
+                    let tradeProfit = 1 + ((this.priceData[i].close - this.position) / this.position);
+                    this.ruleProfit *= tradeProfit;
+                    this.position = null;
+                    this.tradeList.push({
+                        idx: i,
+                        trade: "SELL",
+                        price: this.priceData[i].close,
+                        profit: (tradeProfit-1).toFixed(5)
+                    });
+                    
                 }
             }
         }
-
+        this.ruleProfit -= 1;
+        this.stockProfit = (this.priceData[this.priceData.length-1].close - this.priceData[0].close) / this.priceData[0].close;
         console.log("tradeList");
         console.log(this.tradeList);
+
+        console.log("ruleProfit");
+        console.log(this.ruleProfit);
+        console.log("stockProfit");
+        console.log(this.stockProfit);
 
         return this.tradeList;
 

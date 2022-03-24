@@ -40,7 +40,8 @@ const stonks = () => {
     // console.log(rules);
     console.log("simulation stats");
     console.log(stats);
-  }, [simulating]);
+    setSimulating(false);
+  }, [stats]);
 
   return (
   <div>
@@ -58,11 +59,11 @@ const stonks = () => {
 
       {rules && rules.map((rule, i) => Object.entries(rules[i]).map(([key, value]) => <p >{value}</p> ))}
       </>
-      <>
+      <div className={"btn"}>
       {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} />}
       {rules.length > 0 && <Button color={"green"} text={"simulate"} onClick={simClick} />}
       {statDisplay && <p>DOGE TO THE MOON</p>}
-      </>
+      </div>
       <>
       {simulating && <Simulator priceData={priceData} rules={rules} setStats={setStats} setStatDisplay={setStatDisplay} setSimulating={setSimulating} />}
       {statDisplay && stats.map((stat, i) => Object.entries(stats[i]).map(([key, value]) => <p >{key}  {value}</p> ))}
