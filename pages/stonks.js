@@ -18,7 +18,7 @@ const stonks = () => {
 
   const [ruleDisplay, setRuleDisplay] = useState(false);
   const [statDisplay, setStatDisplay] = useState(false);
-  const [search, setSearch] = useState({stock: "AAPL", interval:"D"});
+  const [search, setSearch] = useState();
   const [priceData, setPriceData] = useState();
   const [rules, setRules] = useState([]);
   const [stats, setStats] = useState();
