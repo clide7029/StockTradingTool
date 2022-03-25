@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
-import loginform from '../styles/LoginForm.module.css';
+import loginform from '/styles/LoginForm.module.css';
 
 async function createUser(username, password) {
   const response = await fetch('/pages/api/auth/signup', {
