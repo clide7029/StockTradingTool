@@ -169,7 +169,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
     const xExtents = [min, max + 5];
 
     const gridHeight = height - margin.top - margin.bottom;
-
+    const volumeHeight = -475 + (numUniqueCharts * 95)
     const secondChartOrigin = (_, h) => [0, h - secondChartHeight - thirdChartHeight];
     const thirdChartOrigin = (_,h) => [0, h - secondChartHeight];
     const barChartHeight = gridHeight / 4;
@@ -232,6 +232,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
                             yExtents={(d) => d.volume}
                         >
                         <BarSeries fillStyle={volumeColor} yAccessor={volumeSeries} />
+                        <SingleValueTooltip yAccessor={(d) => d.volume} yLabel="V:" origin={[8,volumeHeight]}/>
                         </Chart>
         }
         <Chart id={3} height={chartHeight} yExtents={candleChartExtents}>
@@ -301,7 +302,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
     );
 }
 const getData = async (search) => {
-    const response =  await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1610669676&to=1644884076&token=c6im5hiad3i8jt9dugng')
+    const response =  await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=0000000000&to=1644884076&token=c6im5hiad3i8jt9dugng')
     const returnData = await response.json();
     initialData = returnData;
 }

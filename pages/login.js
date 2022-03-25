@@ -22,9 +22,10 @@ class login extends Component {
       signInUsername: '',
       signInPassword: '',
       signUpUsername: '',
-      signUpPassword: '',
+      signUpPassword: ''
     };
-
+    console.log("signUpUsername",this.state.signUpUsername);
+    console.log("signUpPassword",this.state.signUpPassword);
     this.onTextboxChangeSignInUsername = this.onTextboxChangeSignInUsername.bind(this);
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
     this.onTextboxChangeSignUpUsername = this.onTextboxChangeSignUpUsername.bind(this);
@@ -100,6 +101,9 @@ class login extends Component {
       isLoading: true,
     });
 
+    console.log("signUpUsername",this.state.signUpUsername);
+    console.log("signUpPassword",this.state.signUpPassword);
+
     // Post request to backend
     fetch('../components/sign/signin', {
       method: 'POST',
@@ -107,13 +111,11 @@ class login extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: signUpUsername,
-        password: signUpPassword  
+        username: this.state.signUpUsername,
+        password: this.state.signUpPassword  
       }),
     }).then(res => res.json())
       .then(json => {
-        console.log(signUpUsername);
-        console.log(signUpPassword);
         console.log('json', json);
         if (json.success) {
           this.setState({
@@ -121,7 +123,7 @@ class login extends Component {
             isLoading: false,
             signUpUsername: '',
             signUpPassword: '',
-  
+          
           });
         } else {
           this.setState({
@@ -146,14 +148,14 @@ class login extends Component {
     });
 
     // Post request to backend
-    fetch('../api/account/signup', {
+    fetch('../components/sign/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "username": signInUsername,
-        "password": signInPassword,
+        username: signInUsername,
+        password: signInPassword,
       }),
     }).then(res => res.json())
       .then(json => {
