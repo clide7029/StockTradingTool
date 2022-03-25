@@ -2262,7 +2262,7 @@ const GenericFinancialChart = ({search, setPriceData, rules}) => {
     return <CandleStick initialData = {initialData}/>
 }
 export async function getServerSideProps(context) {
-  let response = fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1610669676&to=1644884076&token=c6im5hiad3i8jt9dugng');
+  let response = fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1500669676&to=1644884076&token=c6im5hiad3i8jt9dugng');
   response = await response.json();
   let propsData = dataConverter(response)
   return {
@@ -2272,7 +2272,7 @@ export async function getServerSideProps(context) {
 
 const getData = async (search, setInitialData) => {
   try {
-    const response =  await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=0000000000&to=1644884076&token=c8qlb5qad3ienapjoalg')
+    const response =  await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1410669676&to=1644884076&token=c8qlb5qad3ienapjoalg')
     console.log(response)
     if(!response.ok) {
       throw new Error();
