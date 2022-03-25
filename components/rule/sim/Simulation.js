@@ -71,14 +71,16 @@ class Simulation{
                         idx: i,
                         trade: "SELL",
                         price: this.priceData[i].close,
-                        profit: (tradeProfit-1).toFixed(5)
+                        profit: ((tradeProfit-1)*100).toFixed(5) + "%"
                     });
                     
                 }
             }
         }
         this.ruleProfit -= 1;
+        this.ruleProfit *= 100;
         this.stockProfit = (this.priceData[this.priceData.length-1].close - this.priceData[0].close) / this.priceData[0].close;
+        this.stockProfit *= 100;
         console.log("tradeList");
         console.log(this.tradeList);
 
@@ -86,6 +88,9 @@ class Simulation{
         console.log(this.ruleProfit);
         console.log("stockProfit");
         console.log(this.stockProfit);
+
+        this.tradeList.unshift({stockProfit:this.stockProfit.toFixed(2)+"%", ruleProfit:this.ruleProfit.toFixed(2)+"%"});
+        
 
         return this.tradeList;
 
