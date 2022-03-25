@@ -12,64 +12,6 @@
     text-align: center;
   }
 
-.form_control {
-    margin: 20px 0;
-}
-
-.form_label {
-    display: block;
-}
-
-.form_input {
-    width: 100%;
-    height: 40px;
-    margin: 5px;
-    padding: 3px 7px;
-    font-size: 17px;
-}
-
-.form_check {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.form_check_label {
-    flex: 1;
-}
-
-.form_check_input {
-    flex: 2;
-    height: 20px;
-}
-
-.btn {
-    display: inline-block;
-    background: #000;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 15px;
-    font-family: inherit;
-}
-
-.btn:focus {
-    outline: none;
-}
-
-.btn:active {
-    transform: scale(0.98);
-}
-
-.btn_block {
-    display: block;
-    width: 100%;
-}
-
   
   .auth h1 {
     text-align: center;
@@ -90,7 +32,7 @@
   .control input {
     font: inherit;
     background-color: #f1e1fc;
-    color: #38015c;
+    color: #302d31;
     border-radius: 4px;
     border: 1px solid white;
     width: 100%;
@@ -109,15 +51,15 @@
     cursor: pointer;
     font: inherit;
     color: white;
-    background-color: #9f5ccc;
-    border: 1px solid #9f5ccc;
+    background-color: #141314;
+    border: 1px solid #212022;
     border-radius: 4px;
     padding: 0.5rem 2.5rem;
   }
   
   .actions button:hover {
-    background-color: #873abb;
-    border-color: #873abb;
+    background-color: #3f3d41;
+    border-color: #3e3c3f;
   }
   
   .actions .toggle {
@@ -128,5 +70,5 @@
   
   .actions .toggle:hover {
     background-color: transparent;
-    color: #ae82cc;
+    color: #424044;
   }
