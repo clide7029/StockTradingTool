@@ -14,16 +14,18 @@ const Field = forwardRef(({label, type}, ref) => {
     );
 });
 
-const SeriesMenu = forwardRef(({label}, ref) => {
+const VolumeMenu = forwardRef(({label}, ref) => {
     return (
       <div>
         <label className={ruleFormStyle.form_inline} >{label}</label>
         <select ref={ref} className={ruleStyle.ruleMenu}>
-          <option value={""}>seriesType:</option>
-          <option value={"o"}>Open</option>
-          <option value={"c"}>Close</option>
-          <option value={"h"}>High</option>
-          <option value={"l"}>Low</option>
+          <option value={0}>Volume:</option>
+          <option value={100_000}>100k</option>
+          <option value={500_000}>500k</option>
+          <option value={1_000_000}>1M</option>
+          <option value={2_000_000}>2M</option>
+          <option value={5_000_000}>5M</option>
+          <option value={10_000_000}>10M</option>
       </select>
       </div>
     );
@@ -44,8 +46,8 @@ const RuleForm = ({onSubmit}) => {
     };
     return (
       <form className={ruleFormStyle.form_inline} onSubmit={handleSubmit} >
-        <Field ref={buyVolumeRef} label="Buy Volume:" type="number" />
-        <Field ref={sellVolumeRef} label="Sell Volume:" type="number" />
+        <VolumeMenu ref={buyVolumeRef} label="Buy Volume:" type="number" />
+        <VolumeMenu ref={sellVolumeRef} label="Sell Volume:" type="number" />
         <div>
           <button className={ruleFormStyle.form_inline} type="submit">Submit</button>
         </div>

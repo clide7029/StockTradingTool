@@ -101,6 +101,7 @@ const CandleStick = ({initialData}) => {
         yExtents={barChartExtents}
         >
         <BarSeries fillStyle={volumeColor} yAccessor={volumeSeries} />
+        <SingleValueTooltip yAccessor={(d) => d.volume} yLabel="V:" origin={[280,-491]}/>
         </Chart>
         <Chart id={3} height={chartHeight} yExtents={candleChartExtents}>
         <XAxis showGridLines showTickLabel={true} />
