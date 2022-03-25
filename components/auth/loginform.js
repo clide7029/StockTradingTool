@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
-import loginstyles from '../styles/LoginForm.module.css';
+import loginform from '../styles/LoginForm.module.css';
 
 async function createUser(username, password) {
   const response = await fetch('/pages/api/auth/signup', {
@@ -63,14 +63,14 @@ function LoginForm() {
   }
 
   return (
-    <section className={loginstyles.auth}>
+    <section className={loginform.auth}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
       <form onSubmit={submitHandler}>
-        <div className={loginstyles.control}>
+        <div className={loginform.control}>
           <label htmlFor='username'>Your Username</label>
           <input type='username' id='username' required ref={usernameInputRef} />
         </div>
-        <div className={loginstyles.control}>
+        <div className={loginform.control}>
           <label htmlFor='password'>Your Password</label>
           <input
             type='password'
@@ -79,11 +79,11 @@ function LoginForm() {
             ref={passwordInputRef}
           />
         </div>
-        <div className={loginstyles.actions}>
+        <div className={loginform.actions}>
           <button>{isLogin ? 'Login' : 'Create Account'}</button>
           <button
             type='button'
-            className={loginstyles.toggle}
+            className={loginform.toggle}
             onClick={switchAuthModeHandler}
           >
             {isLogin ? 'Create new account' : 'Login with existing account'}
