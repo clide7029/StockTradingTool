@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 
- import {
-  getFromStorage,
-    setInStorage,
-} from '../components/storage';
+//  import {
+//   getFromStorage,
+//     setInStorage,
+// } from '../components/storage';
 
 
 import loginStyle from "../styles/Login.module.css";
@@ -37,7 +37,7 @@ class login extends Component {
   }
   
   componentDidMount() {
-    const obj = getFromStorage("StockTradingTool");
+    // const obj = getFromStorage("StockTradingTool");
     if (obj && obj.token) {
       const { token } = obj;
       // Verify token
@@ -161,7 +161,7 @@ class login extends Component {
       .then(json => {
         console.log('json', json);
         if (json.success) {
-          setInStorage("StockTradingTool", { token: json.token });
+          // setInStorage("StockTradingTool", { token: json.token });
           this.setState({
             signInError: json.message,
             isLoading: false,
@@ -182,7 +182,7 @@ class login extends Component {
     this.setState({
       isLoading: true,
     });
-    const obj = getFromStorage("StockTradingTool");
+    // const obj = getFromStorage("StockTradingTool");
     if (obj && obj.token) {
       const { token } = obj;
       // Verify token
