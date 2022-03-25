@@ -302,6 +302,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
     );
 }
 const getData = async (search) => {
+    const response =  await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=0000000000&to=1644884076&token=c6im5hiad3i8jt9dugng')
     const returnData = await response.json();
     initialData = returnData;
 }
