@@ -69,6 +69,9 @@ class Rule{
 
     volume(priceData){
         let signal = [];
+        // console.log("this.rule.buyVolume")
+        // console.log(typeof(this.rule.buyVolume))
+        // console.log(this.rule.buyVolume)
         for (let i = 0; i < priceData.length; i++) {
             if(priceData[i].open < priceData[i].close){
                 if(priceData[i].volume > this.rule.buyVolume){

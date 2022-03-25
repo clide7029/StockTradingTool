@@ -57,7 +57,7 @@ const stonks = () => {
       <>
       {search && <p>{search.stock}<br></br>{search.interval}</p>}
 
-      {rules && rules.map((rule, i) => Object.entries(rules[i]).map(([key, value]) => <p >{value}</p> ))}
+      {rules && rules.map((rule, i) => <div key={i} style={{display:"flex",flexFlow: "row wrap"}}> {Object.entries(rules[i]).map(([key, value]) => <p>{key}:  {value}&emsp;</p> )} </div>)}
       </>
       <div className={"btn"}>
       {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} />}
@@ -66,9 +66,7 @@ const stonks = () => {
       </div>
       <>
       {simulating && <Simulator priceData={priceData} rules={rules} setStats={setStats} setStatDisplay={setStatDisplay} setSimulating={setSimulating} />}
-      {statDisplay && stats.map((stat, i) => Object.entries(stats[i]).map(([key, value]) => <p >{key}  {value}</p> ))}
-      
-      
+      {statDisplay && stats.map((stat, i) => <div key={i} style={{display:"flex",flexFlow: "row wrap"}}> {Object.entries(stats[i]).map(([key, value]) => <p>{key}:  {value}&emsp;</p> )} </div>)}
       </>
     </div>
   </div>

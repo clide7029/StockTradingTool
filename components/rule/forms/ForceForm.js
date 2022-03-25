@@ -19,11 +19,11 @@ const SeriesMenu = forwardRef(({label}, ref) => {
       <div>
         <label className={ruleFormStyle.form_inline} >{label}</label>
         <select ref={ref} className={ruleStyle.ruleMenu}>
-          <option value={""}>Magnitude:</option>
-          <option value={"100000"}>100k</option>
-          <option value={"1000000"}>1M</option>
-          <option value={"10000000"}>10M</option>
-          <option value={"1_000_000_000"}>1B</option>
+          <option value={0}>Magnitude:</option>
+          <option value={100_000}>100k</option>
+          <option value={1_000_000}>1M</option>
+          <option value={10_000_000}>10M</option>
+          <option value={1_000_000_000}>1B</option>
       </select>
       </div>
     );
