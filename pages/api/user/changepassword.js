@@ -1,7 +1,7 @@
 import { getSession } from 'next-auth/client';
 
-import { hashPassword, verifyPassword } from '../../../lib/auth';
-import { connectToDatabase } from '../../../lib/db';
+import { hashPassword, verifyPassword } from '../../lib/auth';
+import { connectToDatabase } from '../../lib/mongodb';
 
 async function handler(req, res) {
   if (req.method !== 'PATCH') {
@@ -15,7 +15,7 @@ async function handler(req, res) {
     return;
   }
 
-  const userEmail = session.user.email;
+  const userName = session.user.username;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
 
@@ -23,7 +23,7 @@ async function handler(req, res) {
 
   const usersCollection = client.db().collection('users');
 
-  const user = await usersCollection.findOne({ email: userEmail });
+  const user = await usersCollection.findOne({ username: userName });
 
   if (!user) {
     res.status(404).json({ message: 'User not found.' });
@@ -44,7 +44,7 @@ async function handler(req, res) {
   const hashedPassword = await hashPassword(newPassword);
 
   const result = await usersCollection.updateOne(
-    { email: userEmail },
+    { username: userName },
     { $set: { password: hashedPassword } }
   );
 
