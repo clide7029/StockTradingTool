@@ -19,7 +19,7 @@ function UserProfile() {
   // }
 
   async function changePasswordHandler(passwordData) {
-    const response = await fetch('/api/user/changepassword', {
+    const response = await fetch('../../api/user/changepassword', {
       method: 'PATCH',
       body: JSON.stringify(passwordData),
       headers: {
