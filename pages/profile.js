@@ -1,8 +1,9 @@
 import { getSession } from 'next-auth/client';
 
 import UserProfile from '../components/profile/userprofile';
+i//mport ProfileForm from '..components/profile/profileform';
 
-function ProfileForm() {
+function ProfilePage() {
   return <UserProfile />;
 }
 
@@ -23,4 +24,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default ProfileForm;
+export default ProfilePage;
