@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 
 import profilesFstyles from '../styles/ProfileForm.module.css';
+import Simulator from '../components/rule/sim/Simulator';
 
 function ProfileForm(props) {
   const oldPasswordRef = useRef();
@@ -32,6 +33,13 @@ function ProfileForm(props) {
       </div>
       <div className={profilesFstyles.action}>
         <button>Change Password</button>
+      </div>
+      <div className={profilesFstyles.control}> 
+      <label>Stocks Simulations</label> 
+      </div>
+      <div className={profilesFstyles.action}>
+
+        <button>Run Sim</button>
       </div>
     </form>
   );
