@@ -1,5 +1,5 @@
 import { hashPassword } from '../../../lib/auth';
-import { connectToDatabase } from '../../../lib/db';
+import { connectToDatabase } from '../../../lib/mongodb';
 
 async function handler(req, res) {
   if (req.method !== 'POST') {
