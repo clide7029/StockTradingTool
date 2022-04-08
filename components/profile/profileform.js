@@ -1,7 +1,14 @@
 import { useRef } from 'react';
 
 import profilesFstyles from '../styles/ProfileForm.module.css';
+import RuleSet from '../components/rule/RuleSet';
+import Options from '../components/graph/Options';
+import SuperChart from '../components/graph/graphComponents/SuperChart';
+import Button from '../components/Button';
+import GenericFinancialChart from '../components/graph/GenericFinancialChart';
+import ReactFinancialChart from '../components/graph/ReactFinancialChart';
 import Simulator from '../components/rule/sim/Simulator';
+
 
 function ProfileForm(props) {
   const oldPasswordRef = useRef();
@@ -12,7 +19,8 @@ function ProfileForm(props) {
 
     const enteredOldPassword = oldPasswordRef.current.value;
     const enteredNewPassword = newPasswordRef.current.value;
-
+    
+    
     // optional: Add validation
 
     props.onChangePassword({
@@ -35,11 +43,11 @@ function ProfileForm(props) {
         <button>Change Password</button>
       </div>
       <div className={profilesFstyles.control}> 
-      <label>Stocks Simulations</label> 
+      <label>Stocks Simulation Results</label> 
       </div>
       <div className={profilesFstyles.action}>
 
-        <button>Run Sim</button>
+        <button> See Simulation Results</button>
       </div>
     </form>
   );
