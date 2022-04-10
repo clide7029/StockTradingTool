@@ -13,5 +13,8 @@ export default async ({ query: { name, span, T1, T2}}, res) => {
     var url = 'https://finnhub.io/api/v1/stock/candle?symbol='+stock.symbol+'&resolution='+span+'&from='+T1+'&to='+T2+'&token=c84b3jqad3ide9hei860';
     const response = await fetch(url);
 	const fetchData = await response.json();
+    const price = await db
+        .collection("price")
+        .insert(fetchData)
     res.json(dataTransformer(fetchData));
 };
