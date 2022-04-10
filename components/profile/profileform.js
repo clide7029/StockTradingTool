@@ -45,10 +45,32 @@ function ProfileForm(props) {
       <div className={profilesFstyles.control}> 
       <label>Stocks Simulation Results</label> 
       </div>
-      <div className={profilesFstyles.action}>
+      <div>
+    <div className="graph">
+      <Options 
+        setSearch={setSearch}
+        setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
+        setStatDisplay={() => setStatDisplay(!statDisplay)}
+      ></Options>
+      <GenericFinancialChart search={search} setPriceData={setPriceData} rules={rules}/>
+      <>{priceData && <p>{priceData[11].ema12}</p>}</>
 
-        <button> See Simulation Results</button>
+      <>
+      {search && <p>{search.stock}<br></br>{search.interval}</p>}
+
+      {rules && rules.map((rule, i) => <div key={i} style={{display:"flex",flexFlow: "row wrap"}}> {Object.entries(rules[i]).map(([key, value]) => <p>{key}:  {value}&emsp;</p> )} </div>)}
+      </>
+      <div className={"btn"}>
+      {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} />}
+      {rules.length > 0 && <Button color={"green"} text={"simulate"} onClick={simClick} />}
+      {statDisplay && <p>DOGE TO THE MOON</p>}
       </div>
+      <>
+      {simulating && <Simulator priceData={priceData} rules={rules} setStats={setStats} setStatDisplay={setStatDisplay} setSimulating={setSimulating} />}
+      {statDisplay && stats.map((stat, i) => <div key={i} style={{display:"flex",flexFlow: "row wrap"}}> {Object.entries(stats[i]).map(([key, value]) => <p>{key}:  {value}&emsp;</p> )} </div>)}
+      </>
+    </div>
+  </div>
     </form>
   );
 }
