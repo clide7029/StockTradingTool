@@ -1,5 +1,7 @@
 import { hashPassword } from '../../../lib/auth';
-import { connectToDatabase } from '../../../lib/mongodb';
+import { connectToDatabase } from '/util/mongodb';
+//import { db } from '/util/mongodb';
+
 
 async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -17,20 +19,20 @@ async function handler(req, res) {
   ) {
     res.status(422).json({
       message:
-        'Invalid input - password should also be at least 0 characters long.',
+        'Invalid input - password should also be at least 1 characters long.',
     });
     return;
   }
 
   const client = await connectToDatabase();
-
-  const db = client.db();
+  const { db } = await connectToDatabase();
+  //const db = client.db();
 
   const existingUser = await db.collection('users').findOne({ username: username });
 
   if (existingUser) {
     res.status(422).json({ message: 'User exists already!' });
-    client.close();
+    
     return;
   }
 
@@ -42,7 +44,7 @@ async function handler(req, res) {
   });
 
   res.status(201).json({ message: 'Created user!' });
-  client.close();
+ 
 }
 
 export default handler;
