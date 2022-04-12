@@ -43,7 +43,7 @@ function ProfileForm(props) {
         <button>Change Password</button>
       </div>
       <div className={profilesFstyles.control}> 
-      <label>Stocks Simulation Results</label> 
+      <label>Stocks Simulation 1</label> 
       </div>
       <div>
     <div className="graph">
@@ -72,6 +72,8 @@ function ProfileForm(props) {
     </div>
   </div>
     </form>
+
+    
   );
 }
 
