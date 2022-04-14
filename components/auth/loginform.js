@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
-
+//import Link from 'next/link';
 import loginform from '/styles/LoginForm.module.css';
 
 async function createUser(username, password) {
@@ -47,10 +47,12 @@ function LoginForm() {
         username: enteredUsername,
         password: enteredPassword,
       });
-
+       console.log("Result Error?",result.error);
       if (!result.error) {
         // set some auth state
-        router.replace('/profile');
+        console.log("ROUTER PUSHED?");
+        router.push('/profile');
+        
       }
     } else {
       try {
