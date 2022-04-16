@@ -24,7 +24,7 @@ async function handler(req, res) {
     return;
   }
 
-  const client = await connectToDatabase();
+  //const client = await connectToDatabase();
   const { db } = await connectToDatabase();
   //const db = client.db();
 
