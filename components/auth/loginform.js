@@ -47,7 +47,8 @@ function LoginForm() {
         username: enteredUsername,
         password: enteredPassword,
       });
-       console.log("Result Error?",result.error);
+      
+      console.log("Result Error?",result.error);
       if (!result.error) {
         // set some auth state
         console.log("ROUTER PUSHED?");
