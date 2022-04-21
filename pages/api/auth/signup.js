@@ -1,5 +1,5 @@
 import { hashPassword } from '../../../lib/auth';
-import { connectToDatabase } from '../util/mongodb';
+import { connectToDatabase } from '../../../util/mongodb';
 //import { db } from '/util/mongodb';
 
 
