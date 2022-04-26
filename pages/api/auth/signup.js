@@ -24,9 +24,9 @@ async function handler(req, res) {
     return;
   }
   async function getServerSideProps() {
-   //const client = await connectToDatabase();
+   
    const { db } = await connectToDatabase();
-   //const db = client.db();
+  
  
    const existingUser = await db.collection('users').findOne({ username: username });
  
