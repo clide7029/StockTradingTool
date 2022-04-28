@@ -46,7 +46,7 @@ function ProfileForm(props) {
       <label>Stocks Simulation 1</label> 
       </div>
       <div>
-    <div className="graph">
+    <div className={profilesFstyles.graph}>
       <Options 
         setSearch={setSearch}
         setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
@@ -60,7 +60,7 @@ function ProfileForm(props) {
 
       {rules && rules.map((rule, i) => <div key={i} style={{display:"flex",flexFlow: "row wrap"}}> {Object.entries(rules[i]).map(([key, value]) => <p>{key}:  {value}&emsp;</p> )} </div>)}
       </>
-      <div className={"btn"}>
+      <div className={profilesFstyles.btn}>
       {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} />}
       {rules.length > 0 && <Button color={"green"} text={"simulate"} onClick={simClick} />}
       {statDisplay && <p>DOGE TO THE MOON</p>}
