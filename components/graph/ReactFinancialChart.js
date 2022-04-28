@@ -89,6 +89,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
     const calculatedData = null;
     const secondChartHeight = 0;
     const thirdChartHeight = 0;
+    const fourthChartHeight = 0;
     const numUniqueCharts = 0;
     const rsiData = 0;
     const i = 1;
@@ -180,19 +181,13 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
                 }
             }
             else if(n.indicator == "Elder") {
-                let ema12 = ema()
-                    .options({ windowSize: windowSize})
-                    .merge((d, c) => {
-                    d.ema12 = c;
-                })
-                .accessor((d) => d.ema12);
-                let ema26 = ema()
-                    .options({ windowSize: windowSize})
-                    .merge((d, c) => {
-                d.ema26 = c;
-                })
-                .accessor((d) => d.ema26);
-                calculatedData = elder(ema26(ema12(initialData)));
+                let ema = ema()
+                    .options({ windowSize: n.ema})
+                    .merge((d,c) => {
+                        d[`ema${n.ema}`] = c;
+                    })
+                    .accessor((d) => d.ema);
+                elder(ema(initialData));
                 isElder == true;
             }
             else if(n.indicator == "RSI") {
@@ -223,6 +218,9 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
     if(numUniqueCharts >= 2) {
         thirdChartHeight = 100;
     }
+    if(numUniqueCharts >= 3) {
+        fourthChartHeight = 100;
+    }
     /*
     console.log("EMA, Force, Elder");
     console.log(numEMA);
@@ -238,12 +236,14 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
 
     const gridHeight = height - margin.top - margin.bottom;
     const volumeHeight = -491 + (numUniqueCharts * 100)
-    const secondChartOrigin = (_, h) => [0, h - secondChartHeight - thirdChartHeight];
-    const thirdChartOrigin = (_,h) => [0, h - secondChartHeight];
+
+    const secondChartOrigin = (_, h) => [0, h - secondChartHeight - thirdChartHeight - fourthChartHeight];
+    const thirdChartOrigin = (_,h) => [0, h - secondChartHeight - thirdChartHeight];
+    const fourthChartOrigin = (_,h) => [0, h - secondChartHeight];
     const barChartHeight = gridHeight / 4;
-    const barChartOrigin = (_, h) => [0, h - barChartHeight - secondChartHeight - thirdChartHeight];
+    const barChartOrigin = (_, h) => [0, h - barChartHeight - secondChartHeight - thirdChartHeight - fourthChartHeight];
     //const barChartOrigin = (_, h) => [0, h - barChartHeight];
-    const chartHeight = gridHeight - secondChartHeight - thirdChartHeight;
+    const chartHeight = gridHeight - secondChartHeight - thirdChartHeight - fourthChartHeight;
     //const chartHeight = gridHeight;
     const yExtents = (data) => {
     return [data.high, data.low];
@@ -366,7 +366,23 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
             <YAxis ticks={4} tickFormat={pricesDisplayFormat} />
             <MouseCoordinateX displayFormat={timeDisplayFormat} />
         <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat}/>
-            <RSISeries key="RSI" yAccessor={(d)=>d.rsi} fill = "000000"/>
+            <RSISeries key="RSI" yAccessor={(d)=>d.rsi} strokeDasharray="100000"/>
+            <SingleValueTooltip yAccessor={RSI.accessor()} yLabel="RSI" origin={[8,16]}/>
+                </Chart>
+        }
+        {isElder &&
+            <Chart
+                id={6}
+                height={fourthChartHeight}
+                yExtents={elder.accessor()}
+                origin={fourthChartOrigin}
+                padding={{top:8, bottom:8}}
+            >
+            <XAxis showGridLines gridLinesStrokeStyle="#e0e3eb" />
+            <ElderRaySeries yAccessor={elder.accessor()}/>
+            <MouseCoordinateX displayFormat={timeDisplayFormat} />
+        <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat}/>
+            <RSISeries key="RSI" yAccessor={(d)=>d.rsi} strokeDasharray="100000"/>
             <SingleValueTooltip yAccessor={RSI.accessor()} yLabel="RSI" origin={[8,16]}/>
                 </Chart>
         }
