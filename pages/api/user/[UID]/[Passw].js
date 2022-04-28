@@ -2,8 +2,8 @@ import { connectToDatabase } from "../../../../util/mongodb.js";
 export default async ({ query: { UID, Passw}}, res) => {
   const { db } = await connectToDatabase();
   const Users = await db
-    .collection("User")
-    .findOne({UID: UID, Password: Passw})
+    .collection("users")
+    .findOne({username: UID, password: Passw})
     
   res.json(Users);
 };

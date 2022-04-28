@@ -1,5 +1,5 @@
 import { hashPassword } from '../../../lib/auth';
-import { connectToDatabase } from '/util/mongodb';
+import { connectToDatabase } from '../../../util/mongodb';
 //import { db } from '/util/mongodb';
 
 
@@ -23,28 +23,31 @@ async function handler(req, res) {
     });
     return;
   }
+  async function getServerSideProps() {
+   
+   const { db } = await connectToDatabase();
+  
+ 
+   const existingUser = await db.collection('users').findOne({ username: username });
+ 
+   if (existingUser) {
+     res.status(422).json({ message: 'User exists already!' });
+     
+     return;
+   }
+ 
+   const hashedPassword = await hashPassword(password);
+ 
+   const result = await db.collection('users').insertOne({
+     username: username,
+     password: hashedPassword,
+   });
+ 
+   res.status(201).json({ message: 'Created user!' });
+  
 
-  const client = await connectToDatabase();
-  const { db } = await connectToDatabase();
-  //const db = client.db();
-
-  const existingUser = await db.collection('users').findOne({ username: username });
-
-  if (existingUser) {
-    res.status(422).json({ message: 'User exists already!' });
-    
-    return;
   }
 
-  const hashedPassword = await hashPassword(password);
-
-  const result = await db.collection('users').insertOne({
-    username: username,
-    password: hashedPassword,
-  });
-
-  res.status(201).json({ message: 'Created user!' });
- 
 }
 
 export default handler;

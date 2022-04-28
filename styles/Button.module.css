@@ -1,6 +1,5 @@
 .btn {
     width: 100%;
-    display: inline-block;
     background: #000;
     color: #fff;
     border: none;
@@ -11,6 +10,8 @@
     text-decoration: none;
     font-size: 15px;
     font-family: inherit;
+    border: 5px;
+    border-right: 10px;
 }
 
 .btn:focus {

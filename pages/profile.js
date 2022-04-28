@@ -1,7 +1,7 @@
 import { getSession } from 'next-auth/client';
 
 import UserProfile from '../components/profile/userprofile';
-import ProfileForm from '..components/profile/profileform';
+import ProfileForm from '../components/profile/profileform';
 
 function ProfilePage() {
   return <UserProfile />;

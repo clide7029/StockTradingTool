@@ -1,4 +1,6 @@
-import Rule from './Rule'
+import RuleForm from './RuleForm'
+import ruleStyle from '../../styles/Rule.module.css'
+import ruleFormStyle from '../../styles/RuleForm.module.css'
 
 const RuleSet = ({ruleCount, rules, setRules}) => {
 
@@ -7,11 +9,11 @@ const RuleSet = ({ruleCount, rules, setRules}) => {
     // for(let i = 0; i < ruleCount; i++) {
     //   ruleList.push(<Rule id={i} rules={rules} setRules={setRules}></Rule>)
     // }
-
+// {display:"flex",flexFlow: "row wrap"}
 
     return (
       <div className="ruleSet">
-        <Rule rules={rules} setRules={setRules}></Rule>
+        <RuleForm rules={rules} setRules={setRules}></RuleForm>
       </div>
 
     )

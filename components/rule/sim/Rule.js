@@ -32,24 +32,23 @@ class Rule{
                 break;
         }
 
-        console.log("stats");
-        console.log(stats);
+        // console.log("stats");
+        // console.log(stats);
         return stats;
     }
 
     ema(priceData){
-        let signal = [];
-        for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].close >= priceData[i][`ema${this.rule.timePeriod}`]){
-                // console.log("buy");
-                // priceData[i].trade = "BUY";
-                signal[i] = 1;
-            }else if(priceData[i].close < priceData[i][`ema${this.rule.timePeriod}`]){
-                signal[i] = -1;
-            }else{
-                signal[i] = 0;
+        let signal = 0;
+        if(priceData.close >= priceData[`ema${this.rule.timePeriod}`]){
+            // console.log("buy");
+            // priceData[i].trade = "BUY";
+            signal = 1;
+        }else if(priceData.close < priceData[`ema${this.rule.timePeriod}`]){
+            signal = -1;
+        }else{
+            signal = 0;
             }
-        }
+        
         return signal;
     }
 
@@ -68,60 +67,53 @@ class Rule{
     // }
 
     volume(priceData){
-        let signal = [];
-        // console.log("this.rule.buyVolume")
-        // console.log(typeof(this.rule.buyVolume))
-        // console.log(this.rule.buyVolume)
-        for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].open < priceData[i].close){
-                if(priceData[i].volume > this.rule.buyVolume){
-                    signal[i] = 1
-                }
-            }else if(priceData[i].open > priceData[i].close){
-                if(priceData[i].volume > this.rule.sellVolume){
-                    signal[i] = -1
-                } 
-            }else{
-                signal[i] = 0;
+        let signal = 0;
+        if(priceData.open < priceData.close){
+            if(priceData.volume > this.rule.buyVolume){
+                signal = 1
             }
+        }else if(priceData.open > priceData.close){
+            if(priceData.volume > this.rule.sellVolume){
+                signal = -1
+            } 
+        }else{
+            signal = 0;
         }
         return signal;
 
     }
     
-    // rsi(priceData){
-    //     let signal = [];
-    //     for (let i = 0; i < priceData.length; i++) {
-    //         if(priceData[i].open < priceData[i].close){
-    //             if(priceData[i].rsi > this.rule.overSold){
-    //                 signal[i] = 1
-    //             }
-    //         }else if(priceData[i].open > priceData[i].close){
-    //             if(priceData[i].rsi > this.rule.overBought){
-    //                 signal[i] = -1
-    //             } 
-    //         }else{
-    //             signal[i] = 0;
-    //         }
-    //     }
-    //     return signal;
-    // }
+    rsi(priceData){
+        let signal = 0;
+        if(priceData.open < priceData.close){
+            if(priceData.rsi > this.rule.overSold){
+                signal = 1
+            }
+        }else if(priceData.open > priceData.close){
+            if(priceData.rsi > this.rule.overBought){
+                signal = -1
+            } 
+        }else{
+            signal = 0;
+        }
+    
+        return signal;
+    }
 
     force(priceData){
-        let signal = [];
-        for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].open < priceData[i].close){
-                if(priceData[i].forceIndex > this.rule.upForce){
-                    signal[i] = 1
-                }
-            }else if(priceData[i].open > priceData[i].close){
-                if(priceData[i].forceIndex < -this.rule.downForce){
-                    signal[i] = -1
-                } 
-            }else{
-                signal[i] = 0;
+        let signal = 0;
+        if(priceData.open < priceData.close){
+            if(priceData[i].forceIndex > this.rule.upForce){
+                signal[i] = 1
             }
+        }else if(priceData.open > priceData.close){
+            if(priceData.forceIndex < -this.rule.downForce){
+                signal = -1
+            } 
+        }else{
+            signal = 0;
         }
+    
         return signal;
     }
 
