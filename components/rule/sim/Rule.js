@@ -21,6 +21,8 @@ class Rule{
             case "MACD":
                 // stats = this.macd(priceData);
                 break;
+            case "Elder":
+                stats = this.elder(priceData);
             case "Volume":
                 stats = this.volume(priceData);
                 break;
@@ -51,6 +53,23 @@ class Rule{
         
         return signal;
     }
+
+    elder(priceData){
+        let signal = 0;
+        if(this.rule.buyPower >= priceData.elderBull){
+            // console.log("buy");
+            // priceData[i].trade = "BUY";
+            signal = 1;
+        }else if(this.rule.sellPower < priceData.elderBear){
+            signal = -1;
+        }else{
+            signal = 0;
+            }
+        
+        return signal;
+    }
+
+
 
     // macd(priceData){
     //     let signal = [];
