@@ -9,7 +9,7 @@ const Field = forwardRef(({label, type}, ref) => {
       <div>
         <label className={ruleFormStyle.form_inline} >{label}</label>
         <input ref={ref} type={type} className={ruleFormStyle.form_inline} 
-        min="1" max="5000"/>
+        step='0.1' placeholder='0.00' min="0.00" max="100.00" />
       </div>
     );
 });
@@ -31,21 +31,21 @@ const SeriesMenu = forwardRef(({label}, ref) => {
 
 //  onChange={e => setRule(e.target.value)}
 
-const RuleForm = ({onSubmit}) => {
-    const timePeriodRef = useRef();
-    const seriesTypeRef = useRef();
+const RiskForm = ({onSubmit}) => {
+    const upsideCaptureRef = useRef();
+    const downsideRiskRef = useRef();
     const handleSubmit = e => {
         e.preventDefault();
         const data = {
-            timePeriod: timePeriodRef.current.value,
-            seriesType: seriesTypeRef.current.value
+            reward: upsideCaptureRef.current.value,
+            risk: downsideRiskRef.current.value
         };
         onSubmit(data);
     };
     return (
       <form className={ruleFormStyle.form_inline} onSubmit={handleSubmit} >
-        <Field ref={timePeriodRef} label="Time Period:" type="number" />
-        <SeriesMenu ref={seriesTypeRef} label="Series Type:" />
+        <Field ref={upsideCaptureRef} label="Upside Capture (%):" type="number"  />
+        <Field ref={downsideRiskRef} label="Downside risk (%):" type="number" />
         <div>
           <button className={ruleFormStyle.form_inline} type="submit">Submit</button>
         </div>
@@ -55,4 +55,4 @@ const RuleForm = ({onSubmit}) => {
 
 
 
-export default RuleForm;
+export default RiskForm;
