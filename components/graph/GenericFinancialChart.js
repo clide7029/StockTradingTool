@@ -2240,25 +2240,25 @@ let initialData = [
         "volume": 27379488
     }
   ];*/
-const GenericFinancialChart = ({search, setPriceData, rules}) => {
-  getData(search);
-  const indicator = ""
-  console.log("Initial Data Set")
+const GenericFinancialChart = ({search, setPriceData, rules, simulating, stats}) => {
+    getData(search);
+  const indicator = "";
+  //console.log("Initial Data Set")
   //const [initialData,isLoading] = useFetch(search);
   //while(isLoading) {
     //console.log("timeout");
     //setTimeout(() => {console.log("Timeout")}, 1000)
   //}
-  console.log(initialData);
+  //console.log(initialData);
 
-  console.log(rules)
+  //console.log(rules)
   if(!rules.length == 0) {
-    console.log("IN SUPER CHART RULES")
-    console.log(rules)
+    //console.log("IN SUPER CHART RULES")
+    //console.log(rules)
       //return <SuperChart searchData = {initialData} rules = {rules}/>
-        return <ReactFinancialChart initialData={initialData} setPriceData={setPriceData} rules={rules}/>
+        return <ReactFinancialChart initialData={initialData} setPriceData={setPriceData} rules={rules} simulating={simulating} stats={stats}/>
     }
-    console.log("giving page")
+    //console.log("giving page")
     return <CandleStick initialData = {initialData}/>
 }
 export async function getServerSideProps(context) {
@@ -2273,7 +2273,7 @@ export async function getServerSideProps(context) {
 const getData = async (search, setInitialData) => {
   try {
     const response =  await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1410669676&to=1644884076&token=c8qlb5qad3ienapjoalg')
-    console.log(response)
+    //console.log(response)
     if(!response.ok) {
       throw new Error();
     }
@@ -2288,25 +2288,7 @@ const getData = async (search, setInitialData) => {
   }
 }
 
-function useFetch(search) {
-  console.log("here")
-  const [fetchData, setFetchData] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-  useEffect(() => {
-    console.log("herer")
-    (async () => {
-      console.log("Herer")
-      setLoading(true);
-      let response = await fetch('https://finnhub.io/api/v1/stock/candle?symbol=' + search.stock + '&resolution=' + search.interval + '&from=1610669676&to=1644884076&token=c6im5hiad3i8jt9dugng');
-      response = await response.json();
-      let tmp = dataConverter(response);
-      setFetchData(tmp);
-      setLoading(false);
-      console.log("Herer")
-    })();
-  }, []);
-  return [fetchData,isLoading];
-}
+
 
 
 export default GenericFinancialChart

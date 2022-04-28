@@ -26,14 +26,14 @@ const stonks = () => {
   const [initialData, setInitialData] = useState();
 
   const simClick = () => setSimulating(true);
-
+/*
   useEffect(() => {
     // rules.forEach( rule => {
       
     // });
     console.log(rules);
   }, [rules]);
-
+*/
 
   useEffect(() => {
 
@@ -51,7 +51,7 @@ const stonks = () => {
         setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
-      <GenericFinancialChart search={search} setPriceData={setPriceData} rules={rules}/>
+      <GenericFinancialChart search={search} setPriceData={setPriceData} rules={rules} simulating={simulating} stats={stats}/>
       <>{priceData && <p>{priceData[11].ema12}</p>}</>
 
       <>
@@ -67,6 +67,7 @@ const stonks = () => {
       <>
       {simulating && <Simulator priceData={priceData} rules={rules} setStats={setStats} setStatDisplay={setStatDisplay} setSimulating={setSimulating} />}
       {statDisplay && stats.map((stat, i) => <div key={i} style={{display:"flex",flexFlow: "row wrap"}}> {Object.entries(stats[i]).map(([key, value]) => <p>{key}:  {value}&emsp;</p> )} </div>)}
+      {statDisplay && console.log(stats)}
       </>
     </div>
   </div>

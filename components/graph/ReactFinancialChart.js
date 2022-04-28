@@ -34,46 +34,66 @@ import {
     MACDTooltipProps,
     forceIndex,
     RSISeries,
-    RSITooltip
+    RSITooltip,
+    LabelAnnotation,
+    SvgPathAnnotation,
+    Annotate,
+    GenericChartComponent,
+    rsi
     
 } from "react-financial-charts";
+//import { RSIIndicator } from "react-financial-charts/rsi";
     
-const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
+const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stats} ) => {
+    /*
     console.log("initial")
     console.log(initialData)
     console.log("tmpData")
-    
+    */
     useEffect(() => {
         setPriceData(initialData);
     }, [initialData]);
+    useEffect(() => {
+        console.log("newData: ");
+        console.log(initialData);
+    }, [simulating]);
     
     const ScaleProvider = discontinuousTimeScaleProviderBuilder().inputDateAccessor(
         (d) => d.date
     );
+    /*
+    let trades = initialData.filter((n) => 
+        {if(n.trades == "BUY" || n.trades == "SELL") {
+            return n;
+        }}    
+    )
+    */
     const height = 700;
     const width = 900;
     const margin = { left: 0, right: 48, top: 0, bottom: 24 };
-    const ema12 = undefined;
     const elder = elderRay();
     const force = forceIndex();
-    const RSI = new RSISeries(initialData);
-    //console.log("TIMEPERIOD")
-    //console.log(rules[0].timePeriod)
-    //const windowSize = 0;
-    //console.log(typeof(windowSize))
+    const RSI = rsi();
+    const shortEMA = ema();
+    const longEMA = ema();
+    const signalEMA = ema();
     const EMAS = [];
     const numEMA = 0;
     const movingAverageToolTipOptions = []
     const EMALineSeriesOptions = [];
-    const isForce = false;//second graph
+    const isForce = false;
+    const isMACD = false;
     const isElder = false;
     const isRSI = false;
     const isVolume = false;
+    const calculatedData = null;
     const secondChartHeight = 0;
     const thirdChartHeight = 0;
     const numUniqueCharts = 0;
-    const calculatedData = 0;
+    const rsiData = 0;
     const i = 1;
+    console.log("RULES");
+    console.log(rules);
     rules.map(
         (n) => {
             if(n.indicator == "EMA") {
@@ -85,7 +105,8 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
                     d[`ema${windowSize}`] = c;
                 })
                 .accessor((d) => d[`ema${windowSize}`])
-                calculatedData = elder(func(initialData));
+                //calculatedData = elder(func(initialData));
+                func(initialData);
                 console.log("CALCULATED DATA")
                 movingAverageToolTipOptions.push({
                     yAccessor:func.accessor(),
@@ -94,19 +115,69 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
                     windowSize: windowSize
                 })
                 EMAS.push(func);
+                /*
                 console.log(n.timePeriod)
                 console.log(EMAS[0].options.windowSize)
                 console.log("END")
+                */
                 numEMA++;
+            }
+            else if(n.indicator == "MACD") {
+                shortEMA = ema()
+                .id(100)
+                .options({windowSize : n.shortPeriod})
+                .merge((d,c) => {
+                    d[`MACD shortPeriod`] = c;
+                })
+                .accessor((d) => d[`MACD shortPeriod`]);
+                longEMA = ema() 
+                .id(101)
+                .options({windowSize : n.longPeriod})
+                .merge((d,c) => {
+                    d[`ema${n.longPeriod}`] = c;
+                })
+                .accessor((d) => d[`ema${n.longPeriod}`]);
+                signalEMA = ema() 
+                .id(102)
+                .options({windowSize : n.signal})
+                .merge((d,c) => {
+                    d[`ema${n.signal}`] = c;
+                })
+                .accessor((d) => d[`ema${n.signal}`]);
+                shortEMA(initialData);
+                longEMA(initialData);
+                signalEMA(initialData);
+                EMAS.push(shortEMA);
+                EMAS.push(longEMA);
+                EMAS.push(signalEMA);
+                movingAverageToolTipOptions.push({
+                    yAccessor : shortEMA.accessor(),
+                    type : "EMA",
+                    stroke : shortEMA.stroke(),
+                    windowSize : n.shortPeriod
+                })
+                movingAverageToolTipOptions.push({
+                    yAccessor : longEMA.accessor(),
+                    type : "EMA",
+                    stroke : longEMA.stroke(),
+                    windowSize : n.longPeriod
+                })                
+                movingAverageToolTipOptions.push({
+                    yAccessor : signalEMA.accessor(),
+                    type : "EMA",
+                    stroke : signalEMA.stroke(),
+                    windowSize : n.signal
+                })
             }
             else if(n.indicator == "Force") {
                 if(isForce == true) {
                     rules.splice(rules.indexOf(n),1);
                 }
-                console.log("FORCE SET TRUE")
-                calculatedData = force(initialData);
-                isForce = true;
-                numUniqueCharts++;
+                else {
+                    calculatedData = force(initialData);
+                    isForce = true;
+                    numUniqueCharts++;
+                }
             }
             else if(n.indicator == "Elder") {
                 let ema12 = ema()
@@ -127,8 +198,10 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
             else if(n.indicator == "RSI") {
                 if(isRSI == true) {
                     rules[n].remove();
+
                 }
                 else{
+                    RSI(initialData);
                     isRSI = true;
                     numUniqueCharts++;
                 }
@@ -150,18 +223,13 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
     if(numUniqueCharts >= 2) {
         thirdChartHeight = 100;
     }
+    /*
     console.log("EMA, Force, Elder");
     console.log(numEMA);
-    //console.log(numForce);
-    //const elder = elderRay();
-    //const force = forceIndex();
-    //const calculatedData = elder(ema26(ema12(initialData)));
-    //const calculatedData = 0;
-    
-    //elder(ema12(initialData));
-    //calculatedData = force(initialData);
+
     console.log("REGULAR CHART")
     console.log(initialData)
+    */
     const { data, xScale, xAccessor, displayXAccessor } = ScaleProvider(initialData);
     const pricesDisplayFormat = format(".2f");
     const max = xAccessor(data[data.length - 1]);
@@ -210,6 +278,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
     };
 
     return (
+        <>
     <ChartCanvas
         height={height}
         ratio={3}
@@ -240,12 +309,14 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
         <YAxis showGridLines tickFormat={pricesDisplayFormat} />
         <CandlestickSeries />
         <></>
-        {EMAS.map((n,i) => <LineSeries key={i} yAccessor={n.accessor()} strokeStyle={n.stroke()}/>)}
+        {EMAS.map((n,i) => <LineSeries key={i} yAccessor={n.accessor()} strokeStyle={n.stroke()} strokeWidth={n.id() >= 50 ? 3 : 1}/>)}
         {numEMA != 0 &&
         <CurrentCoordinate
             yAccessor={EMAS[0].accessor()}
             fillStyle={EMAS[0].stroke()}
         />}
+
+
         <MouseCoordinateY
             rectWidth={margin.right}
             displayFormat={pricesDisplayFormat}
@@ -262,6 +333,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
         <MovingAverageTooltip
             origin={[8, 24]}
             options= {movingAverageToolTipOptions}
+            fontSize = {8}
         />
 
 <ZoomButtons />
@@ -285,8 +357,8 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
         {isRSI &&
             <Chart
                 id={6}
-                height={thirdChartHeight}
-                yExtents={force.accessor()}
+                height={thirdChartHeight + 100}
+                yExtents={RSI.accessor()}
                 origin={thirdChartOrigin}
                 padding={{top:8, bottom:8}}
             >
@@ -294,11 +366,14 @@ const ReactFinancialChart = ({initialData, setPriceData, rules} ) => {
             <YAxis ticks={4} tickFormat={pricesDisplayFormat} />
             <MouseCoordinateX displayFormat={timeDisplayFormat} />
         <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat}/>
-            <LineSeries key="Force" yAccessor={(d)=>d.forceIndex} fill = "FF0000"/>
+            <RSISeries key="RSI" yAccessor={(d)=>d.rsi} fill = "000000"/>
+            <SingleValueTooltip yAccessor={RSI.accessor()} yLabel="RSI" origin={[8,16]}/>
                 </Chart>
         }
         <CrossHairCursor />
+
     </ChartCanvas>
+        </>
     );
 }
 const getData = async (search) => {
@@ -309,6 +384,8 @@ const getData = async (search) => {
 export default ReactFinancialChart;
 
 /*
+        {simulating && trades.map((n) => <SvgPathAnnotation xAccessor = {initialData[n.idx].xAccessor()} datum = {initialData[n.idx]}/> )}
+
 <Chart id ={4} height = {chartHeight} yExtents = {(d) =>}>
             
         </Chart>
