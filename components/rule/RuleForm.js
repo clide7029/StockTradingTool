@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import EMAForm from './forms/EMAForm'
-import MACDForm from './forms/MACDForm'
+import MACDForm from './forms/ElderForm'
 import VolumeForm from './forms/VolumeForm'
 import RSIForm from './forms/RSIForm'
 import ForceForm from './forms/ForceForm'
@@ -72,7 +72,7 @@ const RuleForm = ({ rules, setRules }) => {
       <select className={ruleStyle.ruleMenu} onChange={e => setIndicator(e.target.value)}>
           <option value={""}>Select Indicator:</option>
           <option value={"EMA"}>EMA</option>
-          <option value={"MACD"}>MACD</option>
+          <option value={"Elder"}>Elder</option>
           <option value={"Volume"}>Volume</option>
           <option value={"RSI"}>RSI</option>
           <option value={"Force"}>Force</option>
@@ -85,7 +85,7 @@ const RuleForm = ({ rules, setRules }) => {
     </form>
 
       {indicator=="EMA" && <><EMAForm onSubmit={setCustom}/></>}
-      {indicator=="MACD" && <><MACDForm onSubmit={setCustom}/></>}
+      {indicator=="Elder" && <><ElderForm onSubmit={setCustom}/></>}
       {indicator=="Volume" && <><VolumeForm onSubmit={setCustom}/></>}
       {indicator=="RSI" && <><RSIForm onSubmit={setCustom}/></>}
       {indicator=="Force" && <><ForceForm onSubmit={setCustom}/></>}

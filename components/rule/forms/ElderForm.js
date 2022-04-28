@@ -31,24 +31,24 @@ const SeriesMenu = forwardRef(({label}, ref) => {
 
 //  onChange={e => setRule(e.target.value)}
 
-const RuleForm = ({onSubmit}) => {
-    const shortPeriodRef = useRef();
-    const longPeriodRef = useRef();
-    const signalRef = useRef();
+const ElderForm = ({onSubmit}) => {
+    const buyPowerRef = useRef();
+    const sellPowerRef = useRef();
+    const emaRef = useRef();
     const handleSubmit = e => {
         e.preventDefault();
         const data = {
-            shortPeriod: shortPeriodRef.current.value,
-            longPeriod: longPeriodRef.current.value,
-            signal: signalRef.current.value
+            buyPower: buyPowerRef.current.value,
+            sellPower: sellPowerRef.current.value,
+            ema: emaRef.current.value
         };
         onSubmit(data);
     };
     return (
       <form className={ruleFormStyle.form_inline} onSubmit={handleSubmit} >
-        <Field ref={shortPeriodRef} label="Short Period:" type="number" />
-        <Field ref={longPeriodRef} label="Long Period:" type="number" />
-        <Field ref={signalRef} label="Signal:" type="number" />
+        <Field ref={emaRef} label="EMA Period:" type="number" />
+        <Field ref={buyPowerRef} label="Buy Power Signal:" type="number" />
+        <Field ref={sellPowerRef} label="Sell Power Signal:" type="number" />
         <div>
           <button className={ruleFormStyle.form_inline} type="submit">Submit</button>
         </div>
@@ -58,4 +58,4 @@ const RuleForm = ({onSubmit}) => {
 
 
 
-export default RuleForm;
+export default ElderForm;

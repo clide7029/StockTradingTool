@@ -22,8 +22,17 @@ const about = () => {
         indicating a downtrend. 
       </p>
 
-      <h2>Moving Average Convergence Divergence (MACD)</h2>
-      <p></p>
+      <h2>Elder Ray</h2>
+      <p>The Elder Ray Indicator measures the magnitude of difference between the current price
+        and an EMA (usually a 13-day EMA). The Bull (BUY) Power is calculated by subtracting the
+        EMA from the current high-price and shows the relative outperformance of price. The Bear
+        (SELL) Power is calculated by similarly subtracting the EMA from the current low-price, 
+        detailing to what degree the stock is underperforming compared to it's EMA. To use this 
+        indicator effectively in trading you will need to think about the minimum magnitude of 
+        over or underperformance you want a stock to have before making a trade, allowing a greater
+        degree of freedom and specificity than the general binary nature of EMA to only indicate 
+        whether the stock is simply over or under, not it's magnitude of difference. 
+      </p>
 
       <h1>Momentum Indicators</h1>
 
