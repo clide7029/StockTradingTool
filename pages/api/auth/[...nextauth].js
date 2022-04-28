@@ -9,20 +9,19 @@ export default NextAuth({
     jwt: true,
   },
 
-
   providers: [
     Providers.Credentials({
       async authorize(credentials) {
         const { db } = await connectToDatabase();
 
-        const usersCollection = db.db().collection('users');
+        const usersCollection = db.collection('users');
 
         const user = await usersCollection.findOne({
           username: credentials.username,
         });
 
         if (!user) {
-          db.close();
+          //db.close();
           throw new Error('No user found!');
         }
 
@@ -32,11 +31,11 @@ export default NextAuth({
         );
 
         if (!isValid) {
-          db.close();
+          //db.close();
           throw new Error('Could not log you in!');
         }
 
-        db.close();
+        //db.close();
         return { username: user.username };
         
       },
