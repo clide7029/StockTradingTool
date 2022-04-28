@@ -3,8 +3,9 @@ import { MongoClient } from 'mongodb';
 ////const MONGODB_URI = process.env.MONGODB_URI;
 ///const DB_NAME = process.env.DB_NAME;
 
-MONGODB_URI="mongodb+srv://J_scar:LbhnZFusqfoAyMoH@cluster0.kcrdt.mongodb.net/cluster0?retryWrites=true&w=majority"
-DB_NAME=stockData
+const MONGODB_URI="mongodb+srv://J_scar:LbhnZFusqfoAyMoH@cluster0.kcrdt.mongodb.net/cluster0?retryWrites=true&w=majority"
+const MONGODB_DB='stockData'
+
 
 // check the MongoDB URI
 if (!MONGODB_URI) {

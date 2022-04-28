@@ -47,10 +47,13 @@ function LoginForm() {
         username: enteredUsername,
         password: enteredPassword,
       });
-
+      
+      console.log("Result Error?",result.error);
       if (!result.error) {
         // set some auth state
-        router.replace('/profile');
+        console.log("ROUTER PUSHED?");
+        router.push('/profile');
+        
       }
     } else {
       try {
