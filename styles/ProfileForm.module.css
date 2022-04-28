@@ -38,3 +38,22 @@
   border: 1px solid  black;
 }
 
+.graph {
+  background-color: black;
+  height: 20em;
+  width: 50em;
+}
+
+.statTable * {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.profit {
+  background-color: #26A69A;
+}
+
+
+.loss {
+  background-color: #EF5350;
+}
