@@ -1,5 +1,5 @@
-//import Profile from '../components/profile/profileform';
-import userPstyles from '/styles/UserProfile.module.css';
+import Profile from '../../components/profile/profileform';
+import userStyles from '../../styles/UserProfile.module.css';
 
 
 
@@ -37,7 +37,7 @@ function UserProfile() {
   }
 
   return (
-    <section className={userPstyles.profile}>
+    <section className={userStyles.profile}>
       <h1>Your Profile</h1>
       <Profile onChangePassword={changePasswordHandler} />
     </section>
