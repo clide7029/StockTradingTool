@@ -1,7 +1,4 @@
 import { useRef } from 'react';
-
-
-
 import profileStyles from '../../styles/ProfileForm.module.css';
 
 
@@ -37,6 +34,8 @@ function ProfileForm(props) {
         <input type='password' id='old-password' ref={oldPasswordRef} />
       </div>
       
+
+    
 
 
      </form>
