@@ -1,5 +1,4 @@
-import { useRef } from 'react';
-import { signOut } from 'next-auth/client';
+
 import profileStyles from '../../styles/ProfileForm.module.css';
 
 
