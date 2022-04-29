@@ -1,6 +1,6 @@
 import { hashPassword } from '../../../lib/auth';
 import { connectToDatabase } from '../../../util/mongodb';
-//import { db } from '/util/mongodb';
+
 
 
 async function handler(req, res) {
@@ -23,7 +23,7 @@ async function handler(req, res) {
     });
     return;
   }
-  async function getServerSideProps() {
+  
    
    const { db } = await connectToDatabase();
   
@@ -46,7 +46,7 @@ async function handler(req, res) {
    res.status(201).json({ message: 'Created user!' });
   
 
-  }
+  
 
 }
 
