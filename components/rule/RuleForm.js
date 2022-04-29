@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import EMAForm from './forms/EMAForm'
-import MACDForm from './forms/ElderForm'
+import ElderForm from './forms/ElderForm'
 import VolumeForm from './forms/VolumeForm'
 import RSIForm from './forms/RSIForm'
 import ForceForm from './forms/ForceForm'

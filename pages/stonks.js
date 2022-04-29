@@ -81,9 +81,9 @@ const stonks = () => {
         <>
         <p>{search.stock} TO THE MOON</p>
         {profits && Object.entries(profits).map(([key, value], i) => <p>{key}&emsp;{value}</p> )}
-        <table className={stonkStyles.statTable}>      
+        <table className={stonkStyles.statTable}>
           <thead>
-              <tr> 
+              <tr>
                 {Object.entries(stats[1]).map(([key, value], i) => <td key={i}>{key.toUpperCase()}:&emsp;</td> )} 
               </tr>
           </thead>
