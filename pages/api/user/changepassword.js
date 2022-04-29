@@ -1,7 +1,7 @@
 import { getSession } from 'next-auth/client';
 
 import { hashPassword, verifyPassword } from '../../lib/auth';
-import { connectToDatabase } from '../../lib/mongodb';
+import { connectToDatabase } from '../../../lib/mongodb';
 
 async function handler(req, res) {
   if (req.method !== 'PATCH') {
