@@ -105,7 +105,6 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
                     d[`ema${windowSize}`] = c;
                 })
                 .accessor((d) => d[`ema${windowSize}`])
-                //calculatedData = elder(func(initialData));
                 func(initialData);
                 console.log("CALCULATED DATA")
                 movingAverageToolTipOptions.push({
@@ -308,7 +307,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
                             yExtents={(d) => d.volume}
                         >
                         <BarSeries fillStyle={volumeColor} yAccessor={volumeSeries} />
-                        <SingleValueTooltip yAccessor={(d) => d.volume} yLabel="V:" origin={[255,volumeHeight]}/>
+                        <SingleValueTooltip yAccessor={(d) => d.volume} yLabel="V:" origin={[700,volumeHeight]}/>
                         </Chart>
         }
         <Chart id={3} height={chartHeight} yExtents={candleChartExtents}>

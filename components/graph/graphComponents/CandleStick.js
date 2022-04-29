@@ -1,12 +1,10 @@
 import { format } from "d3-format";
-import { timeFormat } from "d3-time-format";
 import {
     //elderRay,
     //ema,
     discontinuousTimeScaleProviderBuilder,
     Chart,
     ChartCanvas,
-    CurrentCoordinate,
     BarSeries,
     CandlestickSeries,
     //ElderRaySeries,
@@ -51,8 +49,6 @@ const CandleStick = ({initialData}) => {
     const yExtents = (data) => {
     return [data.high, data.low];
     };
-    const dateTimeFormat = "%d %b";
-    const timeDisplayFormat = timeFormat(dateTimeFormat);
 
     const barChartExtents = (data) => {
     return data.volume;
@@ -81,6 +77,7 @@ const CandleStick = ({initialData}) => {
     };
 
     return (
+        <>
     <ChartCanvas
         height={height}
         ratio={3}
@@ -101,7 +98,7 @@ const CandleStick = ({initialData}) => {
         yExtents={barChartExtents}
         >
         <BarSeries fillStyle={volumeColor} yAccessor={volumeSeries} />
-        <SingleValueTooltip yAccessor={(d) => d.volume} yLabel="V:" origin={[280,-491]}/>
+        <SingleValueTooltip yAccessor={(d) => d.volume} yLabel="V:" origin={[700,-491]}/>
         </Chart>
         <Chart id={3} height={chartHeight} yExtents={candleChartExtents}>
         <XAxis showGridLines showTickLabel={true} />
@@ -124,7 +121,7 @@ const CandleStick = ({initialData}) => {
         <OHLCTooltip origin={[8, 16]} />
         </Chart>
         <CrossHairCursor />
-    </ChartCanvas>
+    </ChartCanvas></>
     );
 }
 export default CandleStick
