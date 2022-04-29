@@ -38,8 +38,13 @@ function ProfileForm(props) {
         <button>Change Password</button>
       </div>
       <div className={profilesFstyles.control}> 
-      <label>Stocks Simulation 1</label> 
+      <label>Stocks Simulation Comparsion</label> 
       </div>
+      <div className={profilesFstyles.control}>
+       
+
+       </div>
+
       
     
      </form>
