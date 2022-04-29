@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import profilesFstyles from '../styles/ProfileForm.module.css';
+import profileStyles from '../styles/ProfileForm.module.css';
 
 
 function ProfileForm(props) {
@@ -25,28 +25,15 @@ function ProfileForm(props) {
 
 
   return (
-    <form className={profilesFstyles.form} onSubmit={submitHandler}>
+    <form className={profileStyles.form} onSubmit={submitHandler}>
       <div className={profilesFstyles.control}>
         <label htmlFor='new-password'>New Password</label>
         <input type='password' id='new-password' ref={newPasswordRef} />
       </div>
-      <div className={profilesFstyles.control}>
+      <div className={profileStyles.control}>
         <label htmlFor='old-password'>Old Password</label>
         <input type='password' id='old-password' ref={oldPasswordRef} />
       </div>
-      <div className={profilesFstyles.action}>
-        <button>Change Password</button>
-      </div>
-      <div className={profilesFstyles.control}> 
-      <label>Stocks Simulation Comparsion</label> 
-      </div>
-      <div className={profilesFstyles.control}>
-       
-
-       </div>
-
-      
-    
      </form>
     
   );
