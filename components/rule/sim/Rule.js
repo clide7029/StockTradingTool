@@ -56,16 +56,23 @@ class Rule{
 
     elder(priceData){
         let signal = 0;
-        if(this.rule.buyPower >= priceData.elderBull){
+        console.log('elder bull')
+        console.log(priceData.elderRay.bullPower)
+        console.log(this.rule.buyPower)
+        console.log('elder bear')
+        console.log(priceData.elderRay.bearPower)
+        console.log(this.rule.sellPower)
+        if(priceData.elderRay.bullPower >= this.rule.buyPower || priceData.elderRay.bearPower >= -1 * this.rule.sellPower){
             // console.log("buy");
             // priceData[i].trade = "BUY";
             signal = 1;
-        }else if(this.rule.sellPower < priceData.elderBear){
+        }else if(priceData.elderRay.bearPower <= -1 * this.rule.sellPower || priceData.elderRay.bullPower >= this.rule.sellPower){
             signal = -1;
         }else{
             signal = 0;
             }
-        
+        console.log('signal')
+        console.log(signal)
         return signal;
     }
 
@@ -122,8 +129,8 @@ class Rule{
     force(priceData){
         let signal = 0;
         if(priceData.open < priceData.close){
-            if(priceData[i].forceIndex > this.rule.upForce){
-                signal[i] = 1
+            if(priceData.forceIndex > this.rule.upForce){
+                signal = 1
             }
         }else if(priceData.open > priceData.close){
             if(priceData.forceIndex < -this.rule.downForce){
