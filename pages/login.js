@@ -10,7 +10,8 @@ function LoginPage() {
 
   useEffect(() => {
     getSession().then((session) => {
-      if (session) {
+      if (session.user.name != null) {
+        console.log("Session", session);
         router.replace('/');
       } else {
         setIsLoading(false);
