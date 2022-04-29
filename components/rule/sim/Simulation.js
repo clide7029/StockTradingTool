@@ -56,6 +56,7 @@ class Simulation{
                     this.position = this.priceData[i].close;
                     this.tradeList.push({
                         idx: i,
+                        date: `${this.priceData[i].date.getFullYear()} - ${this.priceData[i].date.getMonth()} - ${this.priceData[i].date.getDate()}`,
                         trade: "BUY",
                         price: this.priceData[i].close
                     });
