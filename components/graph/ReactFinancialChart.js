@@ -87,10 +87,10 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
     const isRSI = false;
     const isVolume = false;
     const calculatedData = null;
-    const secondChartHeight = 0;
-    const thirdChartHeight = 0;
+
     const numUniqueCharts = 0;
     const rsiData = 0;
+    const rsiStrokeStyle = {};
     const i = 1;
     console.log("RULES");
     console.log(rules);
@@ -105,7 +105,6 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
                     d[`ema${windowSize}`] = c;
                 })
                 .accessor((d) => d[`ema${windowSize}`])
-                //calculatedData = elder(func(initialData));
                 func(initialData);
                 console.log("CALCULATED DATA")
                 movingAverageToolTipOptions.push({
@@ -180,20 +179,21 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
                 }
             }
             else if(n.indicator == "Elder") {
-                let ema12 = ema()
-                    .options({ windowSize: windowSize})
-                    .merge((d, c) => {
-                    d.ema12 = c;
-                })
-                .accessor((d) => d.ema12);
-                let ema26 = ema()
-                    .options({ windowSize: windowSize})
-                    .merge((d, c) => {
-                d.ema26 = c;
-                })
-                .accessor((d) => d.ema26);
-                calculatedData = elder(ema26(ema12(initialData)));
-                isElder == true;
+                if(isElder == true) {
+                    rules[n].remove();
+                }
+                else {
+                let tmpema = ema()
+                    .id(80)    
+                    .options({ windowSize: n.ema})
+                    .merge((d,c) => {
+                        d[`ema${n.ema}`] = c;
+                    })
+                    .accessor((d) => d[`ema${n.ema}`]);
+                elder(tmpema(initialData));
+                isElder = true;
+                numUniqueCharts++;
+                }
             }
             else if(n.indicator == "RSI") {
                 if(isRSI == true) {
@@ -202,6 +202,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
                 }
                 else{
                     RSI(initialData);
+                    rsiStrokeStyle = {outsideThreshold : "#FF0000", insideThreshold : "#00FF00"}
                     isRSI = true;
                     numUniqueCharts++;
                 }
@@ -217,19 +218,20 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
             i++;
         } 
     );
-    if(numUniqueCharts >= 1) {
-        secondChartHeight = 100;
-    }
-    if(numUniqueCharts >= 2) {
-        thirdChartHeight = 100;
-    }
-    /*
-    console.log("EMA, Force, Elder");
-    console.log(numEMA);
 
-    console.log("REGULAR CHART")
-    console.log(initialData)
-    */
+    const forceChartHeight = 0;
+    const RSIChartHeight = 0;
+    const elderRayChartHeight = 0;
+
+    if(isForce) {
+        forceChartHeight = 100;
+    }
+    if(isRSI) {
+        RSIChartHeight = 100;
+    }
+    if(isElder) {
+        elderRayChartHeight = 100;
+    }
     const { data, xScale, xAccessor, displayXAccessor } = ScaleProvider(initialData);
     const pricesDisplayFormat = format(".2f");
     const max = xAccessor(data[data.length - 1]);
@@ -238,12 +240,16 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
 
     const gridHeight = height - margin.top - margin.bottom;
     const volumeHeight = -491 + (numUniqueCharts * 100)
-    const secondChartOrigin = (_, h) => [0, h - secondChartHeight - thirdChartHeight];
-    const thirdChartOrigin = (_,h) => [0, h - secondChartHeight];
+
+    const forceChartOrigin = (_, h) => [0, h - forceChartHeight];
+    const RSIChartOrigin = (_,h) => [0, h - forceChartHeight - RSIChartHeight];
+    const elderRayChartOrigin = (_,h) => [0, h - forceChartHeight - RSIChartHeight - elderRayChartHeight];
+    console.log("FORCE CHART HEIGHT");
+    console.log(elderRayChartHeight)
     const barChartHeight = gridHeight / 4;
-    const barChartOrigin = (_, h) => [0, h - barChartHeight - secondChartHeight - thirdChartHeight];
+    const barChartOrigin = (_, h) => [0, h - barChartHeight - forceChartHeight - RSIChartHeight - elderRayChartHeight];
     //const barChartOrigin = (_, h) => [0, h - barChartHeight];
-    const chartHeight = gridHeight - secondChartHeight - thirdChartHeight;
+    const chartHeight = gridHeight - forceChartHeight - RSIChartHeight - elderRayChartHeight;
     //const chartHeight = gridHeight;
     const yExtents = (data) => {
     return [data.high, data.low];
@@ -301,7 +307,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
                             yExtents={(d) => d.volume}
                         >
                         <BarSeries fillStyle={volumeColor} yAccessor={volumeSeries} />
-                        <SingleValueTooltip yAccessor={(d) => d.volume} yLabel="V:" origin={[255,volumeHeight]}/>
+                        <SingleValueTooltip yAccessor={(d) => d.volume} yLabel="V:" origin={[700,volumeHeight]}/>
                         </Chart>
         }
         <Chart id={3} height={chartHeight} yExtents={candleChartExtents}>
@@ -342,9 +348,9 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
         {isForce && 
         <Chart
             id={5}
-            height={secondChartHeight}
+            height={100}
             yExtents={force.accessor()}
-            origin={secondChartOrigin}
+            origin={forceChartOrigin}
             padding={{ top: 8, bottom: 8 }}
         >
         <XAxis showGridLines gridLinesStrokeStyle="#e0e3eb" />
@@ -357,17 +363,43 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
         {isRSI &&
             <Chart
                 id={6}
-                height={thirdChartHeight + 100}
+                height={100}
                 yExtents={RSI.accessor()}
-                origin={thirdChartOrigin}
+                origin={RSIChartOrigin}
                 padding={{top:8, bottom:8}}
             >
             <XAxis showGridLines gridLinesStrokeStyle="#e0e3eb" />
             <YAxis ticks={4} tickFormat={pricesDisplayFormat} />
             <MouseCoordinateX displayFormat={timeDisplayFormat} />
         <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat}/>
-            <RSISeries key="RSI" yAccessor={(d)=>d.rsi} fill = "000000"/>
+            <RSISeries key="RSI" yAccessor={(d)=>d.rsi} strokeStyle = {rsiStrokeStyle}/>
             <SingleValueTooltip yAccessor={RSI.accessor()} yLabel="RSI" origin={[8,16]}/>
+                </Chart>
+        }
+        {isElder &&
+            <Chart
+                id={7}
+                height={100}
+                yExtents={elder.accessor()}
+                origin={elderRayChartOrigin}
+                padding={{top:8, bottom:8}}
+            >
+            <XAxis showGridLines gridLinesStrokeStyle="#e0e3eb" />
+            <YAxis ticks={4} tickFormat={pricesDisplayFormat} />
+
+            <MouseCoordinateX displayFormat={timeDisplayFormat} />
+        <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat}/>
+        <ElderRaySeries yAccessor={elder.accessor()}/>
+        <SingleValueTooltip
+          yAccessor={elder.accessor()}
+          yLabel="Elder Ray"
+          yDisplayFormat={(d) =>
+            `${pricesDisplayFormat(d.bullPower)}, ${pricesDisplayFormat(
+              d.bearPower
+            )}`
+          }
+          origin={[8, 16]}
+        />
                 </Chart>
         }
         <CrossHairCursor />
