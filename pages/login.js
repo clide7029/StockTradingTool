@@ -7,12 +7,13 @@ import LoginForm from '../components/auth/loginform';
 function LoginPage() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-
+  
   useEffect(() => {
     getSession().then((session) => {
-      if (session.user.name != null) {
         console.log("Session", session);
-        router.replace('/');
+      if (session) {
+        console.log("Session", session);
+        //router.replace('/');
       } else {
         setIsLoading(false);
       }
