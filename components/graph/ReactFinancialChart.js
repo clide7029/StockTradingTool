@@ -191,6 +191,7 @@ const ReactFinancialChart = ({initialData, setPriceData, rules, simulating, stat
                     })
                     .accessor((d) => d[`ema${n.ema}`]);
                 elder(tmpema(initialData));
+                console.log(initialData)
                 isElder = true;
                 numUniqueCharts++;
                 }

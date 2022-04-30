@@ -122,8 +122,8 @@ class Rule{
     force(priceData){
         let signal = 0;
         if(priceData.open < priceData.close){
-            if(priceData[i].forceIndex > this.rule.upForce){
-                signal[i] = 1
+            if(priceData.forceIndex > this.rule.upForce){
+                signal = 1
             }
         }else if(priceData.open > priceData.close){
             if(priceData.forceIndex < -this.rule.downForce){
