@@ -63,7 +63,6 @@ const stonks = () => {
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
       <GenericFinancialChart search={search} setPriceData={setPriceData} rules={rules} simulating={simulating} stats={stats}/>
-      <>{priceData && <p>{priceData[11].ema12}</p>}</>
 
       <div>
       {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} />}
@@ -79,19 +78,19 @@ const stonks = () => {
       {simulating && <Simulator priceData={priceData} rules={rules} setStats={setStats} setStatDisplay={setStatDisplay} setSimulating={setSimulating} />}
       {statDisplay && 
         <>
-        <p>{search.stock} TO THE MOON</p>
-        {profits && Object.entries(profits).map(([key, value], i) => <p>{key}&emsp;{value}</p> )}
-        <table className={stonkStyles.statTable}>      
+        {search && <p>{search.stock} TO THE MOON</p>}
+        {profits && Object.entries(profits).map(([key, value], i) => <p key={i}>{key}&emsp;{value}</p> )}
+        <table className={stonkStyles.statTable}>
           <thead>
-              <tr> 
-                {Object.entries(stats[1]).map(([key, value], i) => <td key={i}>{key.toUpperCase()}:&emsp;</td> )} 
+              <tr>
+                {Object.entries(stats[1]).map(([key, value], j) => <td key={j}>{key.toUpperCase()}:&emsp;</td> )} 
               </tr>
           </thead>
 
           <tbody>
             {stats.map((stat, i) =>
                 <tr key={i} className={!stat.profit ? 'none' : parseInt(stat.profit) > 0 ? stonkStyles.profit : stonkStyles.loss}> 
-                  {Object.entries(stats[i]).map(([key, value], j) => <td key={j}>{value}&emsp;</td> )} 
+                  {Object.entries(stats[i]).map(([key, value], k) => <td key={k}>{value}&emsp;</td> )} 
                 </tr>)}
           </tbody>
         </table>

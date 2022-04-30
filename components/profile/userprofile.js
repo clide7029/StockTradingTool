@@ -38,7 +38,7 @@ function UserProfile() {
 
   return (
     <section className={userStyles.profile}>
-      <h1>Your Profile</h1>
+      <h1>Profile Page</h1>
       <Profile onChangePassword={changePasswordHandler} />
     </section>
   );

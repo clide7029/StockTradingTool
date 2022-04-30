@@ -11,7 +11,7 @@
 .control label {
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: #353336;
+  color: #2e2793;
   display: block;
 }
 
@@ -21,7 +21,7 @@
   width: 100%;
   border-radius: 4px;
   padding: 0.25rem;
-  background-color: #f7f0fa;
+  background-color: #a00edf;
 }
 
 .action {

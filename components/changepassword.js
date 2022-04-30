@@ -1,7 +1,7 @@
 import { getSession } from 'next-auth/client';
 
 import { hashPassword, verifyPassword } from '../../lib/auth';
-import { connectToDatabase } from '../../lib/mongodb';
+import { connectToDatabase } from '../util/mongodb';
 
 async function handler(req, res) {
   if (req.method !== 'PATCH') {
@@ -19,9 +19,9 @@ async function handler(req, res) {
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
 
-  const client = await connectToDatabase();
+  const { db } = await connectToDatabase();
 
-  const usersCollection = client.db().collection('users');
+  const usersCollection = db.collection('users');
 
   const user = await usersCollection.findOne({ username: userName });
 
@@ -37,7 +37,7 @@ async function handler(req, res) {
 
   if (!passwordsAreEqual) {
     res.status(403).json({ message: 'Invalid password.' });
-    client.close();
+    //client.close();
     return;
   }
 
@@ -48,7 +48,7 @@ async function handler(req, res) {
     { $set: { password: hashedPassword } }
   );
 
-  client.close();
+  //client.close();
   res.status(200).json({ message: 'Password updated!' });
 }
 

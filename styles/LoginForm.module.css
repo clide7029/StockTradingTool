@@ -15,7 +15,7 @@
   
   .auth h1 {
     text-align: center;
-    color: white;
+    color: rgb(65, 151, 28);
   }
   
   .control {
@@ -24,14 +24,14 @@
   
   .control label {
     display: block;
-    color: white;
+    color: rgb(37, 167, 176);
     font-weight: bold;
     margin-bottom: 0.5rem;
   }
   
   .control input {
     font: inherit;
-    background-color: #f1e1fc;
+    background-color: #e1e4fc;
     color: #302d31;
     border-radius: 4px;
     border: 1px solid white;
