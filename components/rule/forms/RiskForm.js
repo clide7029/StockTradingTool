@@ -45,7 +45,7 @@ const RiskForm = ({onSubmit}) => {
     return (
       <form className={ruleFormStyle.form_inline} onSubmit={handleSubmit} >
         <Field ref={upsideCaptureRef} label="Upside Capture (%):" type="number"  />
-        <Field ref={downsideRiskRef} label="Downside risk (%):" type="number" />
+        <Field ref={downsideRiskRef} label="Downside Risk (%):" type="number" />
         <div>
           <button className={ruleFormStyle.form_inline} type="submit">Submit</button>
         </div>

@@ -30,24 +30,10 @@ class Simulation{
 
     run(){
 
-        // for (let i = 0; i < rules.length; i++) {
-        //     evaluateRule();
-        // };
-
-        //interval list goes here
-
-        console.log("ruleData");
-        console.log(this.ruleData);
-
         for (let i=0; i < this.priceData.length; i++) {
             let signalList = this.onIntervalUpdate(i);
             let signalCount = 0;
             for (let j=0; j < signalList.length; j++) {
-                // const indicator = this.rules[j].indicator;
-                // console.log(`i = ${i} j = ${j}`);
-                // console.log(`rule data type = ${typeof(this.ruleData[i])}`)
-                // console.log(`dataPoint ${j} has signal ${this.ruleData[i][j]}`)
-                // console.log('adding', signalList[j])
                 signalCount += signalList[j];
             }
             if(signalCount == signalList.length || self.reward){
@@ -95,13 +81,6 @@ class Simulation{
         this.ruleProfit *= 100;
         this.stockProfit = (this.priceData[this.priceData.length-1].close - this.priceData[0].close) / this.priceData[0].close;
         this.stockProfit *= 100;
-        console.log("tradeList");
-        console.log(this.tradeList);
-
-        console.log("ruleProfit");
-        console.log(this.ruleProfit);
-        console.log("stockProfit");
-        console.log(this.stockProfit);
 
         this.tradeList.unshift({stockProfit:this.stockProfit.toFixed(2)+"%", ruleProfit:this.ruleProfit.toFixed(2)+"%"});
         
@@ -110,14 +89,6 @@ class Simulation{
 
     }
 
-    evaluateRule(rule, i){
-        if (!this.simRules[rule.indicator]){
-            console.log('new rule object', rule.indicator)
-            this.simRules[rule.indicator] = new Rule(rule);
-        }
-        const tradeData = this.simRules[rule.indicator].evaluate(this.priceData[i]);
-        return tradeData;
-    }
 
     onIntervalUpdate(priceIndex){
         let ruleData = []
@@ -135,6 +106,15 @@ class Simulation{
         return ruleData;
     }
 
+    evaluateRule(rule, i){
+        // create new rule object if there isn't one for this indicator
+        if (!this.simRules[rule.indicator]){
+            this.simRules[rule.indicator] = new Rule(rule);
+        }
+        const tradeData = this.simRules[rule.indicator].evaluate(this.priceData[i]);
+        return tradeData;
+    }
+
 
     checkRisk(rule, index){
         let percentChange = 100 * (this.priceData[index].close - this.position) / this.position;
@@ -148,16 +128,3 @@ class Simulation{
 }
 
 export default Simulation;
-
-
-
-
-// let data = []
-//         for (let i = 0; i < initialData.length; i++) {
-//             data[i] = initialData[i];
-//             if(i>2){
-//                 let avg = (initialData[i].close + initialData[i-1].close + initialData[i-2].close) / 3;
-//                 data[i].ema = avg;
-//             }
-//         }
-//         this.priceData = data;
