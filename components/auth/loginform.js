@@ -48,7 +48,7 @@ function LoginForm() {
         password: enteredPassword,
       });
       
-      console.log("Result Error?",result.error);
+      console.log("Result Error:",result.error);
       if (!result.error) {
         // set some auth state
         
@@ -63,6 +63,9 @@ function LoginForm() {
         console.log(error);
       }
     }
+
+
+    
   }
 
   return (
