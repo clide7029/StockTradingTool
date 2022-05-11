@@ -9,6 +9,9 @@ const Simulator = ({ priceData, rules, setStats, setStatDisplay, setSimulating }
 
     const stats = sim.run();
 
+    console.log('stats')
+    console.log(stats)
+
     setStats(stats);
     setStatDisplay(true);
 

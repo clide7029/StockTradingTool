@@ -1,6 +1,6 @@
 import { useRef } from 'react';
+import profileStyles from '../../styles/ProfileForm.module.css';
 
-import profilestyles from '../styles/ProfileForm.module.css';
 
 function ProfileForm(props) {
   const oldPasswordRef = useRef();
@@ -11,7 +11,8 @@ function ProfileForm(props) {
 
     const enteredOldPassword = oldPasswordRef.current.value;
     const enteredNewPassword = newPasswordRef.current.value;
-
+    
+    
     // optional: Add validation
 
     props.onChangePassword({
@@ -20,21 +21,27 @@ function ProfileForm(props) {
     });
   }
 
+
+
   return (
-    <form className={profilestyles.form} onSubmit={submitHandler}>
-      <div className={profilestyles.control}>
+    <form className={profileStyles.form} onSubmit={submitHandler}>
+      <div className={profileStyles.control}>
         <label htmlFor='new-password'>New Password</label>
         <input type='password' id='new-password' ref={newPasswordRef} />
       </div>
-      <div className={profilestyles.control}>
+      <div className={profileStyles.control}>
         <label htmlFor='old-password'>Old Password</label>
         <input type='password' id='old-password' ref={oldPasswordRef} />
       </div>
-      <div className={profilestyles.action}>
-        <button>Change Password</button>
-      </div>
-    </form>
+      
+
+    
+
+
+     </form>
+    
   );
 }
 
 export default ProfileForm;
+

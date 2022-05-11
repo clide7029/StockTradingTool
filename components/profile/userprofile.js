@@ -1,25 +1,29 @@
-import ProfileForm from '../components/profile/profileform';
-import classes from '../styles/UserProfile.module.css';
+import Profile from '../../components/profile/profileform';
+import userStyles from '../../styles/UserProfile.module.css';
+
+
 
 function UserProfile() {
-  // const [isLoading, setIsLoading] = useState(true);
+  /**
+    const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   getSession().then((session) => {
-  //     if (!session) {
-  //       window.location.href = '/auth';
-  //     } else {
-  //       setIsLoading(false);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+  getSession().then((session) => {
+       if (!session) {
+         window.location.href = '/auth';
+       } else {
+         setIsLoading(false);
+       }
+    });
+   }, []);
 
-  // if (isLoading) {
-  //   return <p className={classes.profile}>Loading...</p>;
-  // }
+   if (isLoading) {
+     return <p className={ProfilePage.profile}>Loading...</p>;
+   }
+    */ 
 
   async function changePasswordHandler(passwordData) {
-    const response = await fetch('/api/user/changepassword', {
+    const response = await fetch('../../api/user/changepassword', {
       method: 'PATCH',
       body: JSON.stringify(passwordData),
       headers: {
@@ -33,9 +37,9 @@ function UserProfile() {
   }
 
   return (
-    <section className={classes.profile}>
-      <h1>Your User Profile</h1>
-      <ProfileForm onChangePassword={changePasswordHandler} />
+    <section className={userStyles.profile}>
+      <h1>Profile Page</h1>
+      <Profile onChangePassword={changePasswordHandler} />
     </section>
   );
 }

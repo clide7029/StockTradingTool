@@ -21,6 +21,8 @@ class Rule{
             case "MACD":
                 // stats = this.macd(priceData);
                 break;
+            case "Elder":
+                stats = this.elder(priceData);
             case "Volume":
                 stats = this.volume(priceData);
                 break;
@@ -32,26 +34,49 @@ class Rule{
                 break;
         }
 
-        console.log("stats");
-        console.log(stats);
+        // console.log("stats");
+        // console.log(stats);
         return stats;
     }
 
     ema(priceData){
-        let signal = [];
-        for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].close >= priceData[i][`ema${this.rule.timePeriod}`]){
-                // console.log("buy");
-                // priceData[i].trade = "BUY";
-                signal[i] = 1;
-            }else if(priceData[i].close < priceData[i][`ema${this.rule.timePeriod}`]){
-                signal[i] = -1;
-            }else{
-                signal[i] = 0;
+        let signal = 0;
+        if(priceData.close >= priceData[`ema${this.rule.timePeriod}`]){
+            // console.log("buy");
+            // priceData[i].trade = "BUY";
+            signal = 1;
+        }else if(priceData.close < priceData[`ema${this.rule.timePeriod}`]){
+            signal = -1;
+        }else{
+            signal = 0;
             }
-        }
+        
         return signal;
     }
+
+    elder(priceData){
+        let signal = 0;
+        console.log('elder bull')
+        console.log(priceData.elderRay.bullPower)
+        console.log(this.rule.buyPower)
+        console.log('elder bear')
+        console.log(priceData.elderRay.bearPower)
+        console.log(this.rule.sellPower)
+        if(priceData.elderRay.bullPower >= this.rule.buyPower || priceData.elderRay.bearPower >= -1 * this.rule.sellPower){
+            // console.log("buy");
+            // priceData[i].trade = "BUY";
+            signal = 1;
+        }else if(priceData.elderRay.bearPower <= -1 * this.rule.sellPower || priceData.elderRay.bullPower >= this.rule.sellPower){
+            signal = -1;
+        }else{
+            signal = 0;
+            }
+        console.log('signal')
+        console.log(signal)
+        return signal;
+    }
+
+
 
     // macd(priceData){
     //     let signal = [];
@@ -68,60 +93,53 @@ class Rule{
     // }
 
     volume(priceData){
-        let signal = [];
-        // console.log("this.rule.buyVolume")
-        // console.log(typeof(this.rule.buyVolume))
-        // console.log(this.rule.buyVolume)
-        for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].open < priceData[i].close){
-                if(priceData[i].volume > this.rule.buyVolume){
-                    signal[i] = 1
-                }
-            }else if(priceData[i].open > priceData[i].close){
-                if(priceData[i].volume > this.rule.sellVolume){
-                    signal[i] = -1
-                } 
-            }else{
-                signal[i] = 0;
+        let signal = 0;
+        if(priceData.open < priceData.close){
+            if(priceData.volume > this.rule.buyVolume){
+                signal = 1
             }
+        }else if(priceData.open > priceData.close){
+            if(priceData.volume > this.rule.sellVolume){
+                signal = -1
+            } 
+        }else{
+            signal = 0;
         }
         return signal;
 
     }
     
-    // rsi(priceData){
-    //     let signal = [];
-    //     for (let i = 0; i < priceData.length; i++) {
-    //         if(priceData[i].open < priceData[i].close){
-    //             if(priceData[i].rsi > this.rule.overSold){
-    //                 signal[i] = 1
-    //             }
-    //         }else if(priceData[i].open > priceData[i].close){
-    //             if(priceData[i].rsi > this.rule.overBought){
-    //                 signal[i] = -1
-    //             } 
-    //         }else{
-    //             signal[i] = 0;
-    //         }
-    //     }
-    //     return signal;
-    // }
+    rsi(priceData){
+        let signal = 0;
+        if(priceData.open < priceData.close){
+            if(priceData.rsi > this.rule.overSold){
+                signal = 1
+            }
+        }else if(priceData.open > priceData.close){
+            if(priceData.rsi > this.rule.overBought){
+                signal = -1
+            } 
+        }else{
+            signal = 0;
+        }
+    
+        return signal;
+    }
 
     force(priceData){
-        let signal = [];
-        for (let i = 0; i < priceData.length; i++) {
-            if(priceData[i].open < priceData[i].close){
-                if(priceData[i].forceIndex > this.rule.upForce){
-                    signal[i] = 1
-                }
-            }else if(priceData[i].open > priceData[i].close){
-                if(priceData[i].forceIndex < -this.rule.downForce){
-                    signal[i] = -1
-                } 
-            }else{
-                signal[i] = 0;
+        let signal = 0;
+        if(priceData.open < priceData.close){
+            if(priceData.forceIndex > this.rule.upForce){
+                signal = 1
             }
+        }else if(priceData.open > priceData.close){
+            if(priceData.forceIndex < -this.rule.downForce){
+                signal = -1
+            } 
+        }else{
+            signal = 0;
         }
+    
         return signal;
     }
 

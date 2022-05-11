@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import loginform from '/styles/LoginForm.module.css';
 
 async function createUser(username, password) {
-  const response = await fetch('/pages/api/auth/signup', {
+  const response = await fetch('/api/auth/signup', {
     method: 'POST',
     body: JSON.stringify({ username, password }),
     headers: {
@@ -47,10 +47,13 @@ function LoginForm() {
         username: enteredUsername,
         password: enteredPassword,
       });
-
+      
+      console.log("Result Error:",result.error);
       if (!result.error) {
         // set some auth state
-        router.replace('/profile');
+        
+        router.push('/profile');
+        
       }
     } else {
       try {
@@ -60,6 +63,9 @@ function LoginForm() {
         console.log(error);
       }
     }
+
+
+    
   }
 
   return (

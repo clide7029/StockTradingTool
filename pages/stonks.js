@@ -22,18 +22,24 @@ const stonks = () => {
   const [priceData, setPriceData] = useState();
   const [rules, setRules] = useState([]);
   const [stats, setStats] = useState();
+  const [profits, setProfits] = useState();
   const [simulating, setSimulating] = useState(false);
   const [initialData, setInitialData] = useState();
 
   const simClick = () => setSimulating(true);
-
+/*
   useEffect(() => {
     // rules.forEach( rule => {
       
     // });
     console.log(rules);
   }, [rules]);
-
+*/
+  useEffect(() => {
+    if(stats){
+      setProfits(stats.shift())
+    }
+  }, [stats])
 
   useEffect(() => {
 
@@ -43,6 +49,11 @@ const stonks = () => {
     setSimulating(false);
   }, [stats]);
 
+  const resetRules = () => {
+    setRules([])
+    setStatDisplay(false)
+  }
+
   return (
   <div>
     <div className="graph">
@@ -51,25 +62,45 @@ const stonks = () => {
         setRuleDisplay={() => setRuleDisplay(!ruleDisplay)}
         setStatDisplay={() => setStatDisplay(!statDisplay)}
       ></Options>
-      <GenericFinancialChart search={search} setPriceData={setPriceData} rules={rules}/>
-      <>{priceData && <p>{priceData[11].ema12}</p>}</>
+      <GenericFinancialChart search={search} setPriceData={setPriceData} rules={rules} simulating={simulating} stats={stats}/>
 
-      <>
-      {search && <p>{search.stock}<br></br>{search.interval}</p>}
-
-      {rules && rules.map((rule, i) => <div key={i} style={{display:"flex",flexFlow: "row wrap"}}> {Object.entries(rules[i]).map(([key, value]) => <p>{key}:  {value}&emsp;</p> )} </div>)}
-      </>
-      <div className={"btn"}>
+      <div>
       {ruleDisplay && <RuleSet ruleDisplay={ruleDisplay} rules={rules} setRules={setRules} />}
-      {rules.length > 0 && <Button color={"green"} text={"simulate"} onClick={simClick} />}
-      {statDisplay && <p>DOGE TO THE MOON</p>}
+      {rules.length > 0 && 
+        <>
+          <Button color={"#EF5350"} text={"reset rules"} onClick={resetRules} />
+          <Button color={"#26A69A"} text={"simulate"} onClick={simClick} />
+        </>}
       </div>
+      
+
       <>
       {simulating && <Simulator priceData={priceData} rules={rules} setStats={setStats} setStatDisplay={setStatDisplay} setSimulating={setSimulating} />}
-      {statDisplay && stats.map((stat, i) => <div key={i} style={{display:"flex",flexFlow: "row wrap"}}> {Object.entries(stats[i]).map(([key, value]) => <p>{key}:  {value}&emsp;</p> )} </div>)}
+      {statDisplay && 
+        <>
+        {search && <p>{search.stock} TO THE MOON</p>}
+        {profits && Object.entries(profits).map(([key, value], i) => <p key={i}>{key}&emsp;{value}</p> )}
+        <table className={stonkStyles.statTable}>
+          <thead>
+              <tr>
+                {Object.entries(stats[1]).map(([key, value], j) => <td key={j}>{key.toUpperCase()}:&emsp;</td> )} 
+              </tr>
+          </thead>
+
+          <tbody>
+            {stats.map((stat, i) =>
+                <tr key={i} className={!stat.profit ? 'none' : parseInt(stat.profit) > 0 ? stonkStyles.profit : stonkStyles.loss}> 
+                  {Object.entries(stats[i]).map(([key, value], k) => <td key={k}>{value}&emsp;</td> )} 
+                </tr>)}
+          </tbody>
+        </table>
+        </>
+      } 
       </>
-    </div>
+      </div>
   </div>
 )};
 //<GenericFinancialChart search = {search}/>
 export default stonks;
+
+

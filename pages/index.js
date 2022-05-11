@@ -10,7 +10,6 @@ const Home = ({ user }) => {
   return (
     <div>
       {/* <UserStatus user={user} /> */}
-      <p>home test</p>
       
     </div>
   )

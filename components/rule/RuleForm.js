@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
-import RuleForm from './forms/RuleForm'
 import EMAForm from './forms/EMAForm'
-import MACDForm from './forms/MACDForm'
+import ElderForm from './forms/ElderForm'
 import VolumeForm from './forms/VolumeForm'
 import RSIForm from './forms/RSIForm'
 import ForceForm from './forms/ForceForm'
+import RiskForm from './forms/RiskForm'
 import Button from '../Button'
 
 import ruleStyle from '../../styles/Rule.module.css';
 import ruleFormStyle from '../../styles/RuleForm.module.css';
 
 
-const Rule = ({ rules, setRules }) => {
+const RuleForm = ({ rules, setRules }) => {
 
   const [rule, setRule] = useState();
   const [indicator, setIndicator] = useState();
@@ -28,11 +28,9 @@ const Rule = ({ rules, setRules }) => {
   
   useEffect(() => {
     console.log(custom)
-    if(!submitted && custom){
-
-      setSubmitted(true);
+    if(custom){
       let data = JSON.parse(JSON.stringify(custom));
-      data.indicator = indicator;
+      // data.indicator = indicator;
       
       // data = {
       //   indicator:indicator,
@@ -41,7 +39,7 @@ const Rule = ({ rules, setRules }) => {
       //   longPeriod:custom.longPeriod,
       //   seriesType:custom.seriesType
       // }
-      setRule(data);
+      setRule({indicator:indicator, ...data});
       // console.dir(custom)
       // console.dir(data)
     }
@@ -57,41 +55,50 @@ const Rule = ({ rules, setRules }) => {
     }
   }, [rule])
 
-  useEffect(() => {
-    if(indicator){
-      setSubmitted(false)
-    }
-  }, [indicator])
+  // useEffect(() => {
+  //   if(indicator){
+  //     setSubmitted(false)
+  //   }
+  // }, [indicator])
 
   const resetRules = () => {
-    setRules([]);
+    // setRules((oldRules) => [...oldRules]);
+
   }
 
   return (
-  <div className={ruleStyle.rule}>
+  <div className={ruleFormStyle.form_box}>
     <form className={ruleFormStyle.form_inline}>
       <select className={ruleStyle.ruleMenu} onChange={e => setIndicator(e.target.value)}>
           <option value={""}>Select Indicator:</option>
           <option value={"EMA"}>EMA</option>
-          <option value={"MACD"}>MACD</option>
+          <option value={"Elder"}>Elder</option>
           <option value={"Volume"}>Volume</option>
           <option value={"RSI"}>RSI</option>
           <option value={"Force"}>Force</option>
+          <option value={"Risk"}>Risk/Reward</option>
       </select>
 
-      {rules && <Button color="red" text="clear rules" onClick={() => setRules([])} />}
+      {/* {rules && <Button color="red" text="clear rules" onClick={console.log('wow')} />} */}
+      
 
     </form>
+
       {indicator=="EMA" && <><EMAForm onSubmit={setCustom}/></>}
-      {indicator=="MACD" && <><MACDForm onSubmit={setCustom}/></>}
+      {indicator=="Elder" && <><ElderForm onSubmit={setCustom}/></>}
       {indicator=="Volume" && <><VolumeForm onSubmit={setCustom}/></>}
       {indicator=="RSI" && <><RSIForm onSubmit={setCustom}/></>}
       {indicator=="Force" && <><ForceForm onSubmit={setCustom}/></>}
+      {indicator=="Risk" && <><RiskForm onSubmit={setCustom}/></>}
+
+
+      {rules && rules.map((rule, i) => <div key={i} className={ruleStyle.rule}> {Object.entries(rules[i]).map(([key, value]) => <p>{key}:  {value}&emsp;</p> )} </div>)}
+
 
   </div>
   )};
 
-export default Rule;
+export default RuleForm;
 
 
         // {rule && <p>{rule.indicator}</p>}
